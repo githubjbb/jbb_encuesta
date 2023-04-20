@@ -86,12 +86,11 @@ class Reportes extends CI_Controller {
 										->setCellValue('W3', 'Prensa')
 										->setCellValue('X3', 'Radio')
 										->setCellValue('Y3', 'Otro')
-										->setCellValue('Z3', 'Profesionalismo y claridad de la información')
-										->setCellValue('AA3', 'Amabilidad y actitud de servicio')
-										->setCellValue('AB3', 'Orientación y guianza')
-										->setCellValue('AC3', 'Estado de las colecciones de la entidad')
-										->setCellValue('AD3', 'Estado de la infraestructura e instalaciones')
-										->setCellValue('AE3', '¿Cuál es su percepción frente al servicio?');
+										->setCellValue('Z3', 'Conocimiento del tema')
+										->setCellValue('AA3', 'Amabilidad y disposición de servicio')
+										->setCellValue('AB3', 'Tiempo de espera')
+										->setCellValue('AC3', 'Estado de la infraestructura e instalaciones')
+										->setCellValue('AD3', '¿Cuál es su percepción frente al servicio?');
 
 										
 			$j=4;
@@ -232,9 +231,8 @@ class Reportes extends CI_Controller {
 													  ->setCellValue('Z'.$j, $lista['calificacion_1'])
 													  ->setCellValue('AA'.$j, $lista['calificacion_2'])
 													  ->setCellValue('AB'.$j, $lista['calificacion_3'])
-													  ->setCellValue('AC'.$j, $lista['calificacion_4'])
-													  ->setCellValue('AD'.$j, $lista['calificacion_5'])
-													  ->setCellValue('AE'.$j, $lista['percepcion']);
+													  ->setCellValue('AC'.$j, $lista['calificacion_5'])
+													  ->setCellValue('AD'.$j, $lista['percepcion']);
 						$j++;
 				endforeach;
 			}
@@ -268,18 +266,17 @@ class Reportes extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(42);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('AA')->setWidth(35);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('AB')->setWidth(35);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AC')->setWidth(37);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(40);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AE')->setWidth(45);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AC')->setWidth(40);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(45);
 
 			// Set fonts	
 			$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 			$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFont()->setBold(true);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFill()->getStartColor()->setARGB(PHPExcel_Style_Color::COLOR_BLUE);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFill()->getStartColor()->setARGB(PHPExcel_Style_Color::COLOR_BLUE);
 
 
 
@@ -380,8 +377,7 @@ class Reportes extends CI_Controller {
 										->setCellValue('S3', 'Educación, cultura y participación ambiental')
 										->setCellValue('T3', 'Investigación científica')
 										->setCellValue('U3', '¿Cuál es su grado de satisfacción con la cantidad de árboles en Bogotá?');
-
-										
+						
 			$j=4;
 			$total = 0; 
 			$x=0;
@@ -389,147 +385,164 @@ class Reportes extends CI_Controller {
 				foreach ($listaEncuestas as $lista):
 						$x++;
 						$tratamiento_datos = '';
-	                    switch ($lista['tratamiento_datos']) {
-	                        case 1:
-	                            $tratamiento_datos = 'Si';
-	                            break;
-	                        case 2:
-	                            $tratamiento_datos = 'No';
-	                            break;
-	                    }
+						if($lista['tratamiento_datos']){
+							switch ($lista['tratamiento_datos']) {
+								case 1:
+									$tratamiento_datos = 'Si';
+									break;
+								case 2:
+									$tratamiento_datos = 'No';
+									break;
+							}
+						}
 	                    $pregunta_5 = '';
-                        switch ($lista['pregunta_5']) {
-                            case 1:
-                            	$pregunta_5 = 'Muy poca';
-                                break;
-                            case 2:
-                                $pregunta_5 = 'Poca';
-                                break;
-                            case 3:
-                                $pregunta_5 = 'Moderada';
-                                break;
-                            case 4:
-                                $pregunta_5 = 'Mucha';
-                                break;
-                        }
+						if($lista['pregunta_5']){
+							switch ($lista['pregunta_5']) {
+								case 1:
+									$pregunta_5 = 'Muy poca';
+									break;
+								case 2:
+									$pregunta_5 = 'Poca';
+									break;
+								case 3:
+									$pregunta_5 = 'Moderada';
+									break;
+								case 4:
+									$pregunta_5 = 'Mucha';
+									break;
+							}
+						}
 	                    $pregunta_6 = '';
-                        switch ($lista['pregunta_6']) {
-                            case 1:
-                            	$pregunta_6 = 'Muy poca';
-                                break;
-                            case 2:
-                                $pregunta_6 = 'Poca';
-                                break;
-                            case 3:
-                                $pregunta_6 = 'Moderada';
-                                break;
-                            case 4:
-                                $pregunta_6 = 'Mucha';
-                                break;
-                        }
+						if($lista['pregunta_6']){
+							switch ($lista['pregunta_6']) {
+								case 1:
+									$pregunta_6 = 'Muy poca';
+									break;
+								case 2:
+									$pregunta_6 = 'Poca';
+									break;
+								case 3:
+									$pregunta_6 = 'Moderada';
+									break;
+								case 4:
+									$pregunta_6 = 'Mucha';
+									break;
+							}
+						}
 	                    $pregunta_7 = '';
-                        switch ($lista['pregunta_7']) {
-                            case 1:
-                            	$pregunta_7 = 'Muy poca';
-                                break;
-                            case 2:
-                                $pregunta_7 = 'Poca';
-                                break;
-                            case 3:
-                                $pregunta_7 = 'Moderada';
-                                break;
-                            case 4:
-                                $pregunta_7 = 'Mucha';
-                                break;
-                        }
+						if($lista['pregunta_7']){
+							switch ($lista['pregunta_7']) {
+								case 1:
+									$pregunta_7 = 'Muy poca';
+									break;
+								case 2:
+									$pregunta_7 = 'Poca';
+									break;
+								case 3:
+									$pregunta_7 = 'Moderada';
+									break;
+								case 4:
+									$pregunta_7 = 'Mucha';
+									break;
+							}
+						}
 	                    $pregunta_8 = '';
-                        switch ($lista['pregunta_8']) {
-                            case 1:
-                            	$pregunta_8 = 'Muy poca';
-                                break;
-                            case 2:
-                                $pregunta_8 = 'Poca';
-                                break;
-                            case 3:
-                                $pregunta_8 = 'Moderada';
-                                break;
-                            case 4:
-                                $pregunta_8 = 'Mucha';
-                                break;
-                        }
-
+						if($lista['pregunta_8']){
+							switch ($lista['pregunta_8']) {
+								case 1:
+									$pregunta_8 = 'Muy poca';
+									break;
+								case 2:
+									$pregunta_8 = 'Poca';
+									break;
+								case 3:
+									$pregunta_8 = 'Moderada';
+									break;
+								case 4:
+									$pregunta_8 = 'Mucha';
+									break;
+							}
+						}
 	                    $pregunta_9 = '';
-                        switch ($lista['pregunta_9']) {
-                            case 1:
-                            	$pregunta_9 = 'Muy bajo';
-                                break;
-                            case 2:
-                                $pregunta_9 = 'Bajo';
-                                break;
-                            case 3:
-                                $pregunta_9 = 'Moderado';
-                                break;
-                            case 4:
-                                $pregunta_9 = 'Alto';
-                                break;
-                            case 5:
-                                $pregunta_9 = 'Muy alto';
-                                break;
-                        }
+						if($lista['pregunta_9']){
+							switch ($lista['pregunta_9']) {
+								case 1:
+									$pregunta_9 = 'Muy bajo';
+									break;
+								case 2:
+									$pregunta_9 = 'Bajo';
+									break;
+								case 3:
+									$pregunta_9 = 'Moderado';
+									break;
+								case 4:
+									$pregunta_9 = 'Alto';
+									break;
+								case 5:
+									$pregunta_9 = 'Muy alto';
+									break;
+							}
+						}
 	                    $pregunta_10 = '';
-                        switch ($lista['pregunta_10']) {
-                            case 1:
-                            	$pregunta_10 = 'Muy bajo';
-                                break;
-                            case 2:
-                                $pregunta_10 = 'Bajo';
-                                break;
-                            case 3:
-                                $pregunta_10 = 'Moderado';
-                                break;
-                            case 4:
-                                $pregunta_10 = 'Alto';
-                                break;
-                            case 5:
-                                $pregunta_10 = 'Muy alto';
-                                break;
-                        }
+						if($lista['pregunta_10']){
+							switch ($lista['pregunta_10']) {
+								case 1:
+									$pregunta_10 = 'Muy bajo';
+									break;
+								case 2:
+									$pregunta_10 = 'Bajo';
+									break;
+								case 3:
+									$pregunta_10 = 'Moderado';
+									break;
+								case 4:
+									$pregunta_10 = 'Alto';
+									break;
+								case 5:
+									$pregunta_10 = 'Muy alto';
+									break;
+							}
+						}
 	                    $pregunta_11 = '';
-                        switch ($lista['pregunta_11']) {
-                            case 1:
-                            	$pregunta_11 = 'Muy bajo';
-                                break;
-                            case 2:
-                                $pregunta_11 = 'Bajo';
-                                break;
-                            case 3:
-                                $pregunta_11 = 'Moderado';
-                                break;
-                            case 4:
-                                $pregunta_11 = 'Alto';
-                                break;
-                            case 5:
-                                $pregunta_11 = 'Muy alto';
-                                break;
-                        }
+						if($lista['pregunta_11']){
+							switch ($lista['pregunta_11']) {
+								case 1:
+									$pregunta_11 = 'Muy bajo';
+									break;
+								case 2:
+									$pregunta_11 = 'Bajo';
+									break;
+								case 3:
+									$pregunta_11 = 'Moderado';
+									break;
+								case 4:
+									$pregunta_11 = 'Alto';
+									break;
+								case 5:
+									$pregunta_11 = 'Muy alto';
+									break;
+							}
+						}
 	                    $pregunta_12 = '';
-                        switch ($lista['pregunta_12']) {
-                            case 1:
-                            	$pregunta_12 = 'Muy bajo';
-                                break;
-                            case 2:
-                                $pregunta_12 = 'Bajo';
-                                break;
-                            case 3:
-                                $pregunta_12 = 'Moderado';
-                                break;
-                            case 4:
-                                $pregunta_12 = 'Alto';
-                                break;
-                            case 5:
-                                $pregunta_12 = 'Muy alto';
-                                break;
-                        }
+						if($lista['pregunta_12']){
+							switch ($lista['pregunta_12']) {
+								case 1:
+									$pregunta_12 = 'Muy bajo';
+									break;
+								case 2:
+									$pregunta_12 = 'Bajo';
+									break;
+								case 3:
+									$pregunta_12 = 'Moderado';
+									break;
+								case 4:
+									$pregunta_12 = 'Alto';
+									break;
+								case 5:
+									$pregunta_12 = 'Muy alto';
+									break;
+							}
+						}
 
                         $pregunta_2 = $lista['pregunta_2']==9?'X':$lista['pregunta_2'];
 
@@ -538,7 +551,7 @@ class Reportes extends CI_Controller {
 						$objPHPExcel->getActiveSheet()->getStyle('Q'.$j.':X'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 						$objPHPExcel->getActiveSheet()->getStyle('Z'.$j.':AD'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-						$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, $x)
+						$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, "$x")
 													  ->setCellValue('B'.$j, $lista['fecha_registro'])
 													  ->setCellValue('C'.$j, $tratamiento_datos)
 													  ->setCellValue('D'.$j, $lista['localidad'])

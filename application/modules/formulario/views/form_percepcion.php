@@ -50,7 +50,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <p class="text-left"><strong>¿Conforme a la Política de Tratamiento de Datos Personales del JBB, autoriza el tratamiento de datos personales?: * </strong><br>
+                                    <p class="text-left"><strong>¿Conforme a la Política de Tratamiento de Datos Personales del JBB, autoriza expresamente el almacenamiento, uso y tratamiento de sus datos personales aportados, o previamente suministrados y contenidos en bases de datos del JBB?: * </strong><br>
                                     Para conocer nuestra Política de Tratamiento de Datos
                                     <a href="https://www.jbb.gov.co/documentos/secretaria_general/2019/politica_datos_personales.pdf" target="_blank"> consúltela aquí.</a></p>
                                     <div class="form-group">

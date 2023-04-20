@@ -127,7 +127,8 @@ function valid_field_servicio()
                         <div class="col-lg-7">  
                             <i class="fa fa-edit"></i> <strong>ENCUESTA DE PERCEPCIÓN Y SATISFACCIÓN </strong><br>
                             ATENCIÓN A LA CIUDADANÍA<br>
-                            <small><strong>Código:</strong> DOC.PR.09.F.02 <strong>Versión 6</strong></small>
+                            <!--<small><strong>Código:</strong> DOC.PR.09.F.02 <strong>Versión 6</strong></small>-->
+                            <small><strong>Código:</strong> SAC.PR.01.F.02 <strong>Versión 2</strong></small>
                         </div>
 
                     </div>
@@ -162,7 +163,7 @@ function valid_field_servicio()
                     <form  name="form" id="form" class="form-horizontal" method="post">
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <input type="radio" name="rango_edad" id="rango_edad1" value=1 onclick="valid_field_edad()"> Menor a 26 años 
+                                <input type="radio" name="rango_edad" id="rango_edad1" value=1 onclick="valid_field_edad()"> Menor de 26 años 
                                 <input type="hidden" id="hdd_rango_edad" name="hdd_rango_edad" />
                             </div>
                             <div class="col-sm-3">
@@ -243,14 +244,14 @@ function valid_field_servicio()
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <!--<div class="col-sm-6">
                                 <p class="text-left"><strong>Barrio:</strong></p>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <input type="text" id="barrio" name="barrio" class="form-control" placeholder="Barrio" >
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="form-group">
@@ -298,7 +299,7 @@ function valid_field_servicio()
 
                         <br>
                         <p class="text-left">
-                            <strong>Califique su grado de satisfacción en una escala de 1 a 5, siendo uno (1) Insatisfecho y cinco (5) totalmente satisfecho o N/A en caso de ser necesario:</strong>
+                            <strong>Califique con una equis (x) su grado de satisfacción en una escala de 1 a 5, siendo uno (1) Insatisfecho y cinco (5) totalmente satisfecho o N/A en caso de ser necesario:</strong>
                         </p>
                         <div class="form-group">
                             <div class="col-sm-5">
@@ -313,9 +314,8 @@ function valid_field_servicio()
                         </div>
              
                         <div class="form-group">
-                            <div class="col-sm-5">
-                                Profesionalismo y claridad de la información
-                            </div>
+                            <!--<div class="col-sm-5">Profesionalismo y claridad de la información</div>-->
+                            <div class="col-sm-5">Conocimiento del tema</div>
                             <div class="col-sm-1">
                                 <input type="radio" name="calificacion_1" id="calificacion_1_1" value=1>
                             </div>
@@ -337,9 +337,8 @@ function valid_field_servicio()
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-5">
-                                Amabilidad y actitud de servicio
-                            </div>
+                            <!--<div class="col-sm-5">Amabilidad y actitud de servicio</div>-->
+                            <div class="col-sm-5">Amabilidad y disposición de servicio</div>
                             <div class="col-sm-1">
                                 <input type="radio" name="calificacion_2" id="calificacion_2_1" value=1>
                             </div>
@@ -361,9 +360,8 @@ function valid_field_servicio()
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-5">
-                                Orientación y guianza
-                            </div>
+                            <!--<div class="col-sm-5">Orientación y guianza</div>-->
+                            <div class="col-sm-5">Tiempo de espera</div>
                             <div class="col-sm-1">
                                 <input type="radio" name="calificacion_3" id="calificacion_3_1" value=1>
                             </div>
@@ -384,7 +382,7 @@ function valid_field_servicio()
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="col-sm-5">
                                  Estado de las colecciones de la entidad
                             </div>
@@ -406,7 +404,7 @@ function valid_field_servicio()
                             <div class="col-sm-2">
                                 <input type="radio" name="calificacion_4" id="calificacion_4_6" value=6>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <div class="col-sm-5">
