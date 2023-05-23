@@ -1,10 +1,10 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/dashboard/buscar_rango.js"); ?>"></script>
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<h4 class="modal-title" id="exampleModalLabel">Buscar Encuestas x Rango de Fechas	</h4>
+	<h4 class="modal-title" id="exampleModalLabel">Buscar Formularios PQRSD x Rango de Fechas	</h4>
 </div>
 <div class="modal-body">
-	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_encu_percepcion_rango'); ?>">
+	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_form_atencion_rango'); ?>">
 <script>
 	$( function() {
 		$( function() {

@@ -4,8 +4,8 @@
 		<div class="col-lg-12">
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<a class="btn btn-success btn-xs" href=" <?php echo base_url('dashboard/admin'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Dashboard </a> 
-					<i class="fa fa-list-ul"></i> <strong>RESGISTROS ENCUESTA DE SATISFACCIÓN</strong>
+					<a class="btn btn-success btn-xs" href=" <?php echo base_url('dashboard/admin_atencionCiudadano'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Dashboard </a> 
+					<i class="fa fa-list-ul"></i> <strong>RESGISTROS FORMULARIOS PQRSD</strong>
 				</div>
 				<div class="panel-body">
 				<?php 
@@ -18,9 +18,9 @@
 								<strong>Fecha: </strong>
 								<?php echo ucfirst(strftime("%b %d, %G",strtotime($fecha))); ?>
 							</div>
-							<?php if($listaEncuestas){ ?>
+							<?php if($listaFormularios){ ?>
 							<div class="col-lg-2">
-								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaXLS"); ?>" target="_blank">
+								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaFormularioAtencionFechaXLS"); ?>" target="_blank">
 									<input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
 									<input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo $fecha ?>" />
 									<div align="right">
@@ -47,9 +47,9 @@
 									echo ucfirst(strftime("%b %d, %G",strtotime($to))); 
 								?>
 							</div>
-							<?php if($listaEncuestas){ ?>				
+							<?php if($listaFormularios){ ?>
 							<div class="col-lg-2">
-								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaXLS"); ?>" target="_blank">
+								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaFormularioAtencionFechaXLS"); ?>" target="_blank">
 									<input type="hidden" class="form-control" id="bandera" name="bandera" value=2 />
 									<input type="hidden" class="form-control" id="from" name="from" value="<?php echo $from; ?>" />
 									<input type="hidden" class="form-control" id="to" name="to" value="<?php echo $to; ?>" />
@@ -65,7 +65,7 @@
 					</div>
 				<?php
 					}
-				    if(!$listaEncuestas){ 
+				    if(!$listaFormularios){ 
 				?>
 				        <div class="col-lg-12">
 				            <small>
@@ -78,60 +78,44 @@
 					<table width="100%" class="table table-hover" id="dataTables">
 						<thead>
 							<tr>
-                                <th class='text-center'>#</th>
-                                <th class='text-center'>Fecha</th>
-                                <th class='text-center'>Rango edad</th>
-                                <th class='text-center'>Genero</th>
-                                <th class='text-center'>Localidad</th>
-                                <th class='text-center'>Nombre servidor</th>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Tipo Persona</th>
+                                <th class="text-center">Tipo Identificación</th>
+                                <th class="text-center">Número Documento</th>
+                                <th class="text-center">Razón Social</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Teléfono</th>
+                                <th class="text-center">Archivo</th>
 							</tr>
 						</thead>
 						<tbody>							
 						<?php
 							$i = 1;
-							foreach ($listaEncuestas as $lista):
+							foreach ($listaFormularios as $lista):
                                 echo '<tr>';
                                 echo '<td class="text-center">' . $i . '</td>';
-                                echo '<td class="text-center">' . $lista['fecha'] . '</td>';
-                                echo '<td class="text-center">';
-                                switch ($lista['rango_edad']) {
-                                    case 1:
-                                        echo 'Menor a 26 años ';
-                                        break;
-                                    case 2:
-                                        echo '27 a 59 años';
-                                        break;
-                                    case 3:
-                                        echo 'Mayor de 60 años';
-                                        break;
+                                echo '<td class="text-center">' . $lista['fecha_registro'] . '</td>';
+                                echo '<td class="text-center">' . $lista['tipo_persona'] . '</td>';
+                                echo '<td class="text-center">' . $lista['tipo_identificacion'] . '</td>';
+                                echo '<td class="text-center">' . $lista['numero_documento'] . '</td>';
+                                echo '<td class="text-center">' . $lista['razon_social'] . '</td>';
+                                echo '<td class="text-center">' . $lista['nombres'] . ' ' . $lista['apellidos'] . '</td>';
+                                echo '<td class="text-center">' . $lista['telefono'] . '</td>';
+                                if ($lista['archivo'] != '') {
+                        ?>
+                                	<td class="text-center"><a href="<?php echo base_url("files/". $lista['archivo']); ?>" download="<?php echo $lista['archivo']; ?>" class="btn btn-success btn-sm"><span class="fa fa-download"></span></a></td>
+                        <?php
+                        		} else {
+                                    echo '<td></td>';
                                 }
-                                echo '</td>';
-                                echo '<td class="text-center">';
-                                switch ($lista['genero']) {
-                                    case 1:
-                                        echo 'Hombre';
-                                        break;
-                                    case 2:
-                                        echo 'Mujer';
-                                        break;
-                                    case 3:
-                                        echo 'No responde';
-                                        break;
-                                    case 4:
-                                        echo 'Otro <br>';
-                                        echo $lista['genero_otro']; 
-                                        break;
-                                }
-                                echo '</td>';
-                                echo '<td class="text-center">' . $lista['localidad'] . '</td>';
-                                echo '<td class="text-center">' . $lista['nombre_servidor'] . '</td>';
                                 echo '</tr>';
                                 $i++;
 							endforeach;
 						?>
 						</tbody>
 					</table>
-					<?php } ?>
+				<?php } ?>
 				</div>	
 			</div>
 		</div>

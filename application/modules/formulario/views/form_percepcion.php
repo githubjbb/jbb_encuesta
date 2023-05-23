@@ -74,7 +74,7 @@
                                                     <select name="id_localidad" id="id_localidad" class="form-control" required >
                                                         <option value="">Select...</option>
                                                         <?php for ($i = 0; $i < count($listaLocalidades); $i++) { ?>
-                                                            <option value="<?php echo $listaLocalidades[$i]["id_localidad"]; ?>"><?php echo $listaLocalidades[$i]["localidad"]; ?></option> 
+                                                            <option value="<?php echo $listaLocalidades[$i]["id_localidad"]; ?>"><?php echo $listaLocalidades[$i]["id_localidad"] . ' - ' . $listaLocalidades[$i]["localidad"]; ?></option> 
                                                         <?php } ?>
                                                     </select>
                                                 </div>
@@ -100,10 +100,10 @@
                                             <div class="form-group">
                                                 <div class="col-sm-12">
                                                     <select name="genero" id="genero" class="form-control" required >
-                                                        <option value=''>Seleccione...</option>
-                                                        <option value=1 >Hombre</option>
-                                                        <option value=2 >Mujer</option>
-                                                        <option value=3 >LGTBTI</option>
+                                                        <option value="">Seleccione...</option>
+                                                        <?php for ($i = 0; $i < count($listaGenero); $i++) { ?>
+                                                            <option value="<?php echo $listaGenero[$i]["id_genero"]; ?>"><?php echo $listaGenero[$i]["genero"]; ?></option> 
+                                                        <?php } ?>
                                                     </select>
                                                 </div>
                                             </div>

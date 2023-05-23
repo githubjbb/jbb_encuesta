@@ -1,44 +1,29 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/dashboard/buscar_rango.js"); ?>"></script>
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<h4 class="modal-title" id="exampleModalLabel">Buscar encuestas por rango de fechas	</h4>
+	<h4 class="modal-title" id="exampleModalLabel">Buscar Encuestas x Rango de Fechas</h4>
 </div>
-
 <div class="modal-body">
 	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_reservas_rango'); ?>">
-
 <script>
-$( function() {
-var dateFormat = "mm/dd/yy",
-from = $( "#from" )
-.datepicker({
-changeMonth: true,
-numberOfMonths: 2
-})
-.on( "change", function() {
-to.datepicker( "option", "minDate", getDate( this ) );
-}),
-to = $( "#to" ).datepicker({
-changeMonth: true,
-numberOfMonths: 2
-})
-.on( "change", function() {
-from.datepicker( "option", "maxDate", getDate( this ) );
-});
-
-function getDate( element ) {
-var date;
-try {
-date = $.datepicker.parseDate( dateFormat, element.value );
-} catch( error ) {
-date = null;
-}
-
-return date;
-}
-});
+	$( function() {
+		var rangoFechas = $('#from, #to').datepicker({
+	        changeMonth: true,
+	        changeYear: true,
+	        dateFormat: 'yy-mm-dd',
+	        numberOfMonths: 1,
+	        onSelect: function (selectedDate) {
+	            var option = this.id == 'from' ? 'minDate' : 'maxDate',
+	                instance = $(this).data('datepicker');
+	            date = $.datepicker.parseDate(
+	                instance.settings.dateFormat ||
+	                $.datepicker._defaults.dateFormat,
+	                selectedDate, instance.settings);
+	            rangoFechas.not(this).datepicker('option', option, date);
+	        }
+	    });
+    });
 </script>
-
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
@@ -46,7 +31,6 @@ return date;
 					<input type="text" class="form-control" id="from" name="from" value="" placeholder="Desde" required />
 				</div>
 			</div>
-				
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="to">Hasta:</label>
@@ -54,7 +38,6 @@ return date;
 				</div>
 			</div>
 		</div>
-		
 		<div class="form-group">
 			<div id="div_load" style="display:none">		
 				<div class="progress progress-striped active">
@@ -67,7 +50,6 @@ return date;
 				<div class="alert alert-danger"><span class="glyphicon glyphicon-remove" id="span_msj">&nbsp;</span></div>
 			</div>	
 		</div>
-
 		<div class="form-group">
 			<div class="row" align="center">
 				<div style="width:50%;" align="center">
@@ -77,6 +59,5 @@ return date;
 				</div>
 			</div>
 		</div>
-			
 	</form>
 </div>

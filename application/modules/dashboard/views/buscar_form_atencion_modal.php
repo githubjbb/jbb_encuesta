@@ -5,7 +5,8 @@
 </div>
 
 <div class="modal-body">
-	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_encuestas'); ?>">
+	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_formularios_atencion'); ?>">
+
 <script>
 	$( function() {
 		$( "#date" ).datepicker({
@@ -16,6 +17,7 @@
 		});
 	});
 </script>
+
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
@@ -23,21 +25,26 @@
 					<input type="text" class="form-control" id="date" name="date" value="" placeholder="Fecha" required />
 				</div>
 			</div>
+			
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<div class="form-group">
-						<div class="row" align="center">
-							<div style="width:50%;" align="center">
-								<br>
-								<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
-									Buscar <span class="glyphicon glyphicon-search" aria-hidden="true">
-								</button> 
-							</div>
-						</div>
-					</div>
+
+		<div class="form-group">
+			<div class="row" align="center">
+				<div style="width:50%;" align="center">
+					<br>
+					<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
+						Buscar <span class="glyphicon glyphicon-search" aria-hidden="true">
+					</button> 
 				</div>
 			</div>
 		</div>
+
+
+				</div>
+			</div>
+		</div>
+		
 		<div class="form-group">
 			<div id="div_load" style="display:none">		
 				<div class="progress progress-striped active">
@@ -50,5 +57,6 @@
 				<div class="alert alert-danger"><span class="glyphicon glyphicon-remove" id="span_msj">&nbsp;</span></div>
 			</div>	
 		</div>
+			
 	</form>
 </div>
