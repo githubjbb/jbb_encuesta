@@ -627,26 +627,27 @@ class Reportes extends CI_Controller {
 									->setCellValue('H3', 'Número de Documento')
 									->setCellValue('I3', 'Genero')
 									->setCellValue('J3', 'Fecha de Nacimiento')
-									->setCellValue('K3', 'Edad')
-									->setCellValue('L3', 'Nombres')
-									->setCellValue('M3', 'Apellidos')
-									->setCellValue('N3', 'Razón Social')
-									->setCellValue('O3', 'Teléfono')
-									->setCellValue('P3', 'Condición')
-									->setCellValue('Q3', 'Pertenece a una Entidad Distrital')
-									->setCellValue('R3', 'Asunto')
-									->setCellValue('S3', 'Archivo Adjunto')
-									->setCellValue('T3', 'Tipo de Petición')
-									->setCellValue('U3', 'Palabra Clave')
-									->setCellValue('V3', 'Tema')
-									->setCellValue('W3', 'Correo Electrónico')
-									->setCellValue('X3', 'Localidad')
-									->setCellValue('Y3', 'UPZ')
-									->setCellValue('Z3', 'Barrio')
-									->setCellValue('AA3', 'Dirección')
-									->setCellValue('AB3', 'Estrato')
-									->setCellValue('AC3', 'Código Postal')
-									->setCellValue('AD3', 'Certifica Información');
+									->setCellValue('K3', 'Quien Realiza Acompañamiento')
+									->setCellValue('L3', 'Edad')
+									->setCellValue('M3', 'Nombres')
+									->setCellValue('N3', 'Apellidos')
+									->setCellValue('O3', 'Razón Social')
+									->setCellValue('P3', 'Teléfono')
+									->setCellValue('Q3', 'Condición')
+									->setCellValue('R3', 'Pertenece a una Entidad Distrital')
+									->setCellValue('S3', 'Asunto')
+									->setCellValue('T3', 'Archivo Adjunto')
+									->setCellValue('U3', 'Tipo de Petición')
+									->setCellValue('V3', 'Palabra Clave')
+									->setCellValue('W3', 'Tema')
+									->setCellValue('X3', 'Correo Electrónico')
+									->setCellValue('Y3', 'Localidad')
+									->setCellValue('Z3', 'UPZ')
+									->setCellValue('AA3', 'Barrio')
+									->setCellValue('AB3', 'Dirección')
+									->setCellValue('AC3', 'Estrato')
+									->setCellValue('AD3', 'Código Postal')
+									->setCellValue('AE3', 'Certifica Información');
 			$j=4;
 			$x=0;
 			if($listaEncuestas){
@@ -685,7 +686,13 @@ class Reportes extends CI_Controller {
 								break;
 						}
 					}
-					$objPHPExcel->getActiveSheet()->getStyle('A'.$j.':AD'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$j.':C'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('H'.$j.':J'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('L'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('P'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('R'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('T'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('AC'.$j.':AE'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 					$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, "$x")
 											->setCellValue('B'.$j, $lista['fecha_registro'])
 											->setCellValue('C'.$j, $autoriza)
@@ -696,68 +703,70 @@ class Reportes extends CI_Controller {
 											->setCellValue('H'.$j, $lista['numero_documento'])
 											->setCellValue('I'.$j, $lista['genero'])
 											->setCellValue('J'.$j, $lista['fecha_nacimiento'])
-											->setCellValue('K'.$j, $lista['edad'])
-											->setCellValue('L'.$j, $lista['nombres'])
-											->setCellValue('M'.$j, $lista['apellidos'])
-											->setCellValue('N'.$j, $lista['razon_social'])
-											->setCellValue('O'.$j, $lista['telefono'])
-											->setCellValue('P'.$j, $lista['condicion'])
-											->setCellValue('Q'.$j, $entidad_distrital)
-											->setCellValue('R'.$j, $lista['asunto'])
-											->setCellValue('S'.$j, $lista['archivo'])
-											->setCellValue('T'.$j, $lista['tipo_atencion'])
-											->setCellValue('U'.$j, $lista['palabra_clave'])
-											->setCellValue('V'.$j, $lista['tema'])
-											->setCellValue('W'.$j, $lista['email'])
-											->setCellValue('X'.$j, $lista['localidad'])
-											->setCellValue('Y'.$j, $lista['upz'])
-											->setCellValue('Z'.$j, $lista['barrio'])
-											->setCellValue('AA'.$j, $lista['direccion'])
-											->setCellValue('AB'.$j, $lista['estrato'])
-											->setCellValue('AC'.$j, $lista['codigo_postal'])
-											->setCellValue('AD'.$j, $confirmar);
+											->setCellValue('K'.$j, $lista['tipo_acompanamiento'])
+											->setCellValue('L'.$j, $lista['edad'])
+											->setCellValue('M'.$j, $lista['nombres'])
+											->setCellValue('N'.$j, $lista['apellidos'])
+											->setCellValue('O'.$j, $lista['razon_social'])
+											->setCellValue('P'.$j, $lista['telefono'])
+											->setCellValue('Q'.$j, $lista['condicion'])
+											->setCellValue('R'.$j, $entidad_distrital)
+											->setCellValue('S'.$j, $lista['asunto'])
+											->setCellValue('T'.$j, $lista['archivo'])
+											->setCellValue('U'.$j, $lista['tipo_atencion'])
+											->setCellValue('V'.$j, $lista['palabra_clave'])
+											->setCellValue('W'.$j, $lista['tema'])
+											->setCellValue('X'.$j, $lista['email'])
+											->setCellValue('Y'.$j, $lista['localidad'])
+											->setCellValue('Z'.$j, $lista['upz'])
+											->setCellValue('AA'.$j, $lista['barrio'])
+											->setCellValue('AB'.$j, $lista['direccion'])
+											->setCellValue('AC'.$j, $lista['estrato'])
+											->setCellValue('AD'.$j, $lista['codigo_postal'])
+											->setCellValue('AE'.$j, $confirmar);
 					$j++;
 				endforeach;
 			}
 			// Set column widths							  
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(5);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(10);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(5);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(25);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(25);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(50);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(5);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(50);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(12);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(40);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(45);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(12);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(16);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(50);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(35);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(50);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(40);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(30);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AA')->setWidth(50);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AB')->setWidth(5);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AA')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AB')->setWidth(50);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('AC')->setWidth(10);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(5);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('AE')->setWidth(20);
 			// Set fonts	
 			$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 			$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFont()->setBold(true);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
-			$objPHPExcel->getActiveSheet()->getStyle('A3:AD3')->getFill()->getStartColor()->setARGB(PHPExcel_Style_Color::COLOR_BLUE);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:AE3')->getFill()->getStartColor()->setARGB(PHPExcel_Style_Color::COLOR_BLUE);
 			// Set header and footer. When no different headers for odd/even are used, odd header is assumed.
 			$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BPersonal cash register&RPrinted on &D');
 			$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');

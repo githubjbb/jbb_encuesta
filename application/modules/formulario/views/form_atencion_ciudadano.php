@@ -24,33 +24,27 @@
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <div class="row">
-                                            <div class="col-lg-12">  
+                                            <div class="col-lg-12">
                                                 <i class="fa fa-user"></i> <strong>Datos del Solicitante</strong>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="panel-body">
-                                        <p class="text-left"><strong>¿Conforme a la Política de Tratamiento de Datos Personales del JBB, autoriza expresamente el almacenamiento, uso y tratamiento de sus datos personales aportados, o previamente suministrados y contenidos en bases de datos del JBB? *</strong><br>
+                                        <p class="text-left"><strong>¿Conforme a la Política de Tratamiento de Datos Personales del JBB, autoriza expresamente el almacenamiento, uso y tratamiento de sus datos personales aportados, o previamente suministrados y contenidos en bases de datos del JBB? *</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input id="autoriza1" name="autoriza" class="autoriza" type="radio" value=1> Sí &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input id="autoriza2" name="autoriza" class="autoriza" type="radio" value=2> No
                                         <div class="row">
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-12">
                                                 Para conocer nuestra Política de Tratamiento de Datos
                                                 <a href="https://www.jbb.gov.co/documentos/secretaria_general/2019/politica_datos_personales.pdf" target="_blank"> consúltela aquí.</a></p>
                                             </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
-                                                        <input id="autoriza1" name="autoriza" class="autoriza" type="radio" value=1 > Sí &nbsp;&nbsp;&nbsp;
-                                                        <input id="autoriza2" name="autoriza" class="autoriza" type="radio" value=2 > No
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-4">
-                                                <p class="text-left"><strong>Tipo de Persona *</strong></p>
+                                            <div class="col-sm-4" id="tipoPersona">
+                                                <p class="text-left"><strong>Tipo de Persona</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="tipo_persona" id="tipo_persona" class="form-control" title="Seleccione el tipo de persona según corresponda." required >
+                                                        <select name="tipo_persona" id="tipo_persona" class="form-control">
                                                             <option value="">Seleccione...</option>
                                                             <?php for ($i = 0; $i < count($listaTipoPersonas); $i++) { ?>
                                                                 <option value="<?php echo $listaTipoPersonas[$i]["id_tipo_persona"]; ?>"><?php echo $listaTipoPersonas[$i]["tipo_persona"]; ?></option> 
@@ -65,7 +59,7 @@
                                                 <p class="text-left"><strong>Tipo de Identificación</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="tipo_ident" id="tipo_ident" class="form-control" title="Seleccione el tipo de identificación según corresponda." >
+                                                        <select name="tipo_ident" id="tipo_ident" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                         <?php for ($i = 0; $i < count($listaTipoIdent); $i++) { ?>
                                                             <option value="<?php echo $listaTipoIdent[$i]["id_tipo_identificacion"]; ?>"><?php echo $listaTipoIdent[$i]["tipo_identificacion"]; ?></option> 
@@ -78,7 +72,7 @@
                                                 <p class="text-left"><strong>Tipo de Entidad</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="tipo_entidad" id="tipo_entidad" class="form-control" title="Seleccione el tipo de entidad según corresponda." >
+                                                        <select name="tipo_entidad" id="tipo_entidad" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                         <?php for ($i = 0; $i < count($listaTipoEntidad); $i++) { ?>
                                                             <option value="<?php echo $listaTipoEntidad[$i]["id_tipo_entidad"]; ?>"><?php echo $listaTipoEntidad[$i]["tipo_entidad"]; ?></option> 
@@ -91,7 +85,7 @@
                                                 <p class="text-left"><strong>Tipo de Empresa/Sociedad</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="tipo_sociedad" id="tipo_sociedad" class="form-control" title="Seleccione el tipo de sociedad según corresponda." >
+                                                        <select name="tipo_sociedad" id="tipo_sociedad" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                     </select>
                                                     </div>
@@ -101,7 +95,7 @@
                                                 <p class="text-left"><strong>Número de Documento</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="documento" name="documento" title="Registre su número de identificación sin puntos, sin comas, ni espacios." >
+                                                        <input type="text" class="form-control" id="documento" name="documento">
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,7 +103,7 @@
                                                 <p class="text-left"><strong>Genero</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="tipo_genero" id="tipo_genero" class="form-control" title="Seleccione el tipo de género según corresponda." >
+                                                        <select name="tipo_genero" id="tipo_genero" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                         <?php for ($i = 0; $i < count($listaGenero); $i++) { ?>
                                                             <option value="<?php echo $listaGenero[$i]["id_genero"]; ?>"><?php echo $listaGenero[$i]["genero"]; ?></option> 
@@ -122,7 +116,20 @@
                                                 <p class="text-left"><strong>Fecha de Nacimiento</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" title="Seleccione el día, mes y año de nacimiento." >
+                                                        <input type="text" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" id="Acompanamiento">
+                                                <p class="text-left"><strong>Quien Realiza Acompañamiento</strong></p>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <select name="tipo_acompanamiento" id="tipo_acompanamiento" class="form-control">
+                                                        <option value="">Seleccione...</option>
+                                                        <?php for ($i = 0; $i < count($listaAcompanamiento); $i++) { ?>
+                                                            <option value="<?php echo $listaAcompanamiento[$i]["id_tipo_acompanamiento"]; ?>"><?php echo $listaAcompanamiento[$i]["tipo_acompanamiento"]; ?></option> 
+                                                        <?php } ?>
+                                                    </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,7 +137,7 @@
                                                 <p class="text-left"><strong>Edad</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="edad" name="edad" title="Registre su edad." >
+                                                        <input type="text" class="form-control" id="edad" name="edad">
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,7 +145,7 @@
                                                 <p class="text-left"><strong>Nombres</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="nombres" name="nombres" title="Registre sus nombres." >
+                                                        <input type="text" class="form-control" id="nombres" name="nombres">
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,7 +153,7 @@
                                                 <p class="text-left"><strong>Apellidos</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="apellidos" name="apellidos" title="Registre sus apellidos." >
+                                                        <input type="text" class="form-control" id="apellidos" name="apellidos">
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,7 +161,7 @@
                                                 <p class="text-left"><strong>Razón Social</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="nombre_est" name="nombre_est" title="Registre el nombre del comercio." >
+                                                        <input type="text" class="form-control" id="nombre_est" name="nombre_est">
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +169,15 @@
                                                 <p class="text-left"><strong>Teléfono</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="telefono" name="telefono" title="Ingrese número de celular donde podamos contactarlo." >
+                                                        <input type="text" class="form-control" id="telefono" name="telefono">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" id="Email">
+                                                <p class="text-left"><strong>Correo Electrónico</strong></p>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <input type="email" class="form-control" id="email" name="email">
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,11 +199,11 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="row" id="Condicion">
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-4">
                                                 <p class="text-left"><strong>1. Condición</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="condicion" id="condicion" class="form-control" title="Si presenta alguna de las condiciones descritas selecciónela, de lo contrario, escoja la opción ninguna." >
+                                                        <select name="condicion" id="condicion" class="form-control">
                                                             <option value="">Seleccione...</option>
                                                             <?php for ($i = 0; $i < count($listaCondiciones); $i++) { ?>
                                                                 <option value="<?php echo $listaCondiciones[$i]["id_condicion"]; ?>"><?php echo $listaCondiciones[$i]["condicion"]; ?></option> 
@@ -197,12 +212,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-4">
                                                 <p class="text-left"><strong>Pertenece a una Entidad Distrital</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input id="entidadDistrital1" name="entidadDistrital" class="entidadDistrital" type="radio" value=1 title="Indique si hace parte de alguna entidad del Distrito."> Sí &nbsp;&nbsp;&nbsp;
-                                                        <input id="entidadDistrital2" name="entidadDistrital" class="entidadDistrital" type="radio" value=2 title="Indique si hace parte de alguna entidad del Distrito."> No
+                                                        <input id="entidadDistrital1" name="entidadDistrital" class="entidadDistrital" type="radio" value=1> Sí &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input id="entidadDistrital2" name="entidadDistrital" class="entidadDistrital" type="radio" value=2> No
                                                     </div>
                                                 </div>
                                             </div>
@@ -212,13 +227,13 @@
                                                 <p class="text-left"><strong>2. Asunto *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <textarea class="form-control" name="asunto" id="asunto" rows="5" title="Describa detalladamente su solicitud teniendo en cuenta: el objeto de la petición, los hechos (en modo, tiempo y lugar), documentación que se requiera aportar y la pretensión o propósito de la misma." required></textarea>
+                                                        <textarea class="form-control" name="asunto" id="asunto" rows="5"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-8">
                                                 <p class="text-left"><strong>3. Archivo Adjunto</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
@@ -252,11 +267,11 @@
                                     <div class="panel-body">
                                         Diligenciar esta información será útil para direccionar tu petición a la entidad competente<br><br>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <p class="text-left"><strong>4. Tipo de Petición *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="tipo_atencion" id="tipo_atencion" class="form-control" title="Seleccione el tipo de petición que desea interponer ante la Administración Distrital." >
+                                                        <select name="tipo_atencion" id="tipo_atencion" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                         <?php for ($i = 0; $i < count($listaTipoAtencion); $i++) { ?>
                                                             <option value="<?php echo $listaTipoAtencion[$i]["id_tipo_atencion"]; ?>"><?php echo $listaTipoAtencion[$i]["tipo_atencion"]; ?></option> 
@@ -265,34 +280,24 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <p class="text-left"><strong>5. Palabra Clave *</strong></p>
+                                            <div class="col-sm-4">
+                                                <p class="text-left"><strong>5. Palabra Clave</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="palabra_clave" name="palabra_clave" title="Ingrese una palabra o frase clave que identifique el tema a tratar en su petición." >
+                                                        <input type="text" class="form-control" id="palabra_clave" name="palabra_clave">
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <p class="text-left"><strong>6. Tema *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="tema" id="tema" class="form-control" title="Seleccione el tema que tenga relación con su petición. Están relacionados con temáticas centrales de la Administración Distrital." >
+                                                        <select name="tema" id="tema" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                         <?php for ($i = 0; $i < count($listaTemas); $i++) { ?>
                                                             <option value="<?php echo $listaTemas[$i]["id_tema"]; ?>"><?php echo $listaTemas[$i]["tema"]; ?></option> 
                                                         <?php } ?>
                                                     </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <p class="text-left"><strong>7. Correo Electrónico *</strong></p>
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
-                                                        <input type="email" class="form-control" id="email" name="email" title="Ingrese el correo electrónico al cual se le enviarán las notificaciones sobre la petición a realizar." >
                                                     </div>
                                                 </div>
                                             </div>
@@ -315,10 +320,10 @@
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <p class="text-left"><strong>8. Localidad *</strong></p>
+                                                <p class="text-left"><strong>7. Localidad *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="localidad" id="localidad" class="form-control" title="Seleccione la localidad asociada a la dirección donde ocurrieron los hechos." >
+                                                        <select name="localidad" id="localidad" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                         <?php for ($i = 0; $i < count($listaLocalidades); $i++) { ?>
                                                             <option value="<?php echo $listaLocalidades[$i]["id_localidad"]; ?>"><?php echo $listaLocalidades[$i]["id_localidad"] . ' - ' . $listaLocalidades[$i]["localidad"]; ?></option> 
@@ -328,20 +333,20 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <p class="text-left"><strong>9. UPZ *</strong></p>
+                                                <p class="text-left"><strong>8. UPZ *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="upz" id="upz" class="form-control" title="Seleccione la UPZ asociada a la dirección de residencia o de contacto." >
+                                                        <select name="upz" id="upz" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                     </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <p class="text-left"><strong>10. Barrio *</strong></p>
+                                                <p class="text-left"><strong>9. Barrio *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="barrio" id="barrio" class="form-control" title="Seleccione el barrio asociado a la localidad donde ocurrieron los hechos." >
+                                                        <select name="barrio" id="barrio" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                     </select>
                                                     </div>
@@ -350,18 +355,18 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <p class="text-left"><strong>11. Dirección *</strong></p>
+                                                <p class="text-left"><strong>10. Dirección *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="direccion" name="direccion" title="Ingrese la dirección donde ocurrieron los hechos o situaciones manifestadas en su petición. Si no cuenta con los datos exactos de la ubicación geográfica- registre una dirección aproximada al lugar de los hechos." >
+                                                        <input type="text" class="form-control" id="direccion" name="direccion">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
-                                                <p class="text-left"><strong>12. Estrato *</strong></p>
+                                                <p class="text-left"><strong>11. Estrato *</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <select name="estrato" id="estrato" class="form-control" title="Seleccione el estrato socioeconómico al cual pertenece el  lugar de los hechos." >
+                                                        <select name="estrato" id="estrato" class="form-control">
                                                         <option value="">Seleccione...</option>
                                                         <?php for ($i = 0; $i < count($listaEstratos); $i++) { ?>
                                                             <option value="<?php echo $listaEstratos[$i]["id_estrato"]; ?>"><?php echo $listaEstratos[$i]["estrato"]; ?></option> 
@@ -371,22 +376,22 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
-                                                <p class="text-left"><strong>13. Código Postal *</strong></p>
+                                                <p class="text-left"><strong>12. Código Postal</strong></p>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" title="Ingrese el código postal." >
+                                                        <input type="text" class="form-control" id="codigo_postal" name="codigo_postal">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="checkbox" class="cbCondiciones" id="confirmar" name="confirmar" > 14. Certifico que el correo electrónico ingresado en mis datos personales se encuentra vigente, de igual manera autorizo a Bogotá Te Escucha - Sistema Distrital de Quejas y Soluciones para el envío de la respuesta a mi solicitud por este medio. *
+                                                <input type="checkbox" class="cbCondiciones" id="confirmar" name="confirmar"> 13. Certifico que el correo electrónico ingresado en mis datos personales se encuentra vigente, de igual manera autorizo a Bogotá Te Escucha - Sistema Distrital de Quejas y Soluciones para el envío de la respuesta a mi solicitud por este medio. *
                                             </div>
                                         </div><br>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <strong>15. Captcha *</strong>
+                                                <strong>14. Captcha *</strong>
                                                 <div class="g-recaptcha" data-sitekey="6Ld11PYlAAAAAH9UfN_NSlyu77QH0XDfVllyEZHx">
                                                 </div>
                                             </div>

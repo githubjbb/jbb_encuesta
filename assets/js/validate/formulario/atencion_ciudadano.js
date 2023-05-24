@@ -104,135 +104,169 @@ $( document ).ready( function () {
         });
     });
 
+    $("#tipoPersona").css("display", "none");
     $("#tipoIdent").css("display", "none");
     $("#tipoEntidad").css("display", "none");
     $("#tipoSociedad").css("display", "none");
     $("#numeroDoc").css("display", "none");
     $("#tipoGenero").css("display", "none");
     $("#fechaNac").css("display", "none");
+    $("#Acompanamiento").css("display", "none");
     $("#Edad").css("display", "none");
     $("#Nombres").css("display", "none");
     $("#Apellidos").css("display", "none");
     $("#NombreEst").css("display", "none");
     $("#Telefono").css("display", "none");
+    $("#Email").css("display", "none");
     $("#Condicion").css("display", "block");
 
-    $("#tipo_persona").on("change", function() {
-        $("#tipo_ident").val('');
-        $("#tipo_entidad").val('');
-        $("#tipo_sociedad").val('');
-        $("#documento").val('');
-        $("#tipo_genero").val('');
-        $("#fecha_nacimiento").val('');
-        $("#edad").val('');
-        $("#nombres").val('');
-        $("#apellidos").val('');
-        $("#nombre_est").val('');
-        $("#telefono").val('');
-        $("#condicion").val('');
-        if (this.value == "") {
-            $("#tipoIdent").css("display", "none");
-            $("#tipoEntidad").css("display", "none");
-            $("#tipoSociedad").css("display", "none");
-            $("#numeroDoc").css("display", "none");
-            $("#tipoGenero").css("display", "none");
-            $("#fechaNac").css("display", "none");
-            $("#Edad").css("display", "none");
-            $("#Nombres").css("display", "none");
-            $("#Apellidos").css("display", "none");
-            $("#NombreEst").css("display", "none");
-            $("#Telefono").css("display", "none");
-            $("#Condicion").css("display", "block");
-            $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
-        } else if(this.value == 1) {
-            $("#tipoIdent").css("display", "block");
-            $("#tipoEntidad").css("display", "none");
-            $("#tipoSociedad").css("display", "none");
-            $("#numeroDoc").css("display", "block");
-            $("#tipoGenero").css("display", "block");
-            $("#fechaNac").css("display", "block");
-            $("#Edad").css("display", "none");
-            $("#Nombres").css("display", "block");
-            $("#Apellidos").css("display", "block");
-            $("#NombreEst").css("display", "none");
-            $("#Telefono").css("display", "block");
-            $("#Condicion").css("display", "block");
-            $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
-        } else if(this.value == 2) {
-            $("#tipoIdent").css("display", "none");
-            $("#tipoEntidad").css("display", "block");
-            $("#tipoSociedad").css("display", "block");
-            $("#numeroDoc").css("display", "block");
-            $("#tipoGenero").css("display", "none");
-            $("#fechaNac").css("display", "none");
-            $("#Edad").css("display", "none");
-            $("#Nombres").css("display", "none");
-            $("#Apellidos").css("display", "none");
-            $("#NombreEst").css("display", "block");
-            $("#Telefono").css("display", "block");
-            $("#Condicion").css("display", "none");
-            $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
-        } else if(this.value == 3) {
-            $("#tipoIdent").css("display", "none");
-            $("#tipoEntidad").css("display", "none");
-            $("#tipoSociedad").css("display", "none");
-            $("#numeroDoc").css("display", "block");
-            $("#tipoGenero").css("display", "none");
-            $("#fechaNac").css("display", "none");
-            $("#Edad").css("display", "none");
-            $("#Nombres").css("display", "none");
-            $("#Apellidos").css("display", "none");
-            $("#NombreEst").css("display", "block");
-            $("#Telefono").css("display", "block");
-            $("#Condicion").css("display", "none");
-            $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
-        } else if(this.value == 4) {
-            $("#tipoIdent").css("display", "none");
-            $("#tipoEntidad").css("display", "none");
-            $("#tipoSociedad").css("display", "none");
-            $("#numeroDoc").css("display", "none");
-            $("#tipoGenero").css("display", "none");
-            $("#fechaNac").css("display", "none");
-            $("#Edad").css("display", "block");
-            $("#Nombres").css("display", "block");
-            $("#Apellidos").css("display", "block");
-            $("#NombreEst").css("display", "none");
-            $("#Telefono").css("display", "block");
-            $("#Condicion").css("display", "none");
-            $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
-        } else if(this.value == 5) {
-            $("#tipoIdent").css("display", "none");
-            $("#tipoEntidad").css("display", "none");
-            $("#tipoSociedad").css("display", "none");
-            $("#numeroDoc").css("display", "none");
-            $("#tipoGenero").css("display", "none");
-            $("#fechaNac").css("display", "none");
-            $("#Edad").css("display", "none");
-            $("#Nombres").css("display", "none");
-            $("#Apellidos").css("display", "none");
-            $("#NombreEst").css("display", "none");
-            $("#Telefono").css("display", "block");
-            $("#Condicion").css("display", "block");
-            $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
-        }
+    $("#autoriza1").on("click", function() {
+        $("#tipoPersona").css("display", "block");
+        $("#tipo_persona").on("change", function() {
+            $("#tipo_ident").val('');
+            $("#tipo_entidad").val('');
+            $("#tipo_sociedad").val('');
+            $("#documento").val('');
+            $("#tipo_genero").val('');
+            $("#fecha_nacimiento").val('');
+            $("#tipo_acompanamiento").val('');
+            $("#edad").val('');
+            $("#nombres").val('');
+            $("#apellidos").val('');
+            $("#nombre_est").val('');
+            $("#telefono").val('');
+            $("#email").val('');
+            $("#condicion").val('');
+            if (this.value == "") {
+                $("#tipoIdent").css("display", "none");
+                $("#tipoEntidad").css("display", "none");
+                $("#tipoSociedad").css("display", "none");
+                $("#numeroDoc").css("display", "none");
+                $("#tipoGenero").css("display", "none");
+                $("#fechaNac").css("display", "none");
+                $("#Acompanamiento").css("display", "none");
+                $("#Edad").css("display", "none");
+                $("#Nombres").css("display", "none");
+                $("#Apellidos").css("display", "none");
+                $("#NombreEst").css("display", "none");
+                $("#Telefono").css("display", "none");
+                $("#Email").css("display", "none");
+                $("#Condicion").css("display", "block");
+                $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
+            } else if(this.value == 1) {
+                $("#tipoIdent").css("display", "block");
+                $("#tipoEntidad").css("display", "none");
+                $("#tipoSociedad").css("display", "none");
+                $("#numeroDoc").css("display", "block");
+                $("#tipoGenero").css("display", "block");
+                $("#fechaNac").css("display", "block");
+                $("#Acompanamiento").css("display", "none");
+                $("#Edad").css("display", "none");
+                $("#Nombres").css("display", "block");
+                $("#Apellidos").css("display", "block");
+                $("#NombreEst").css("display", "none");
+                $("#Telefono").css("display", "block");
+                $("#Email").css("display", "block");
+                $("#Condicion").css("display", "block");
+                $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
+            } else if(this.value == 2) {
+                $("#tipoIdent").css("display", "none");
+                $("#tipoEntidad").css("display", "block");
+                $("#tipoSociedad").css("display", "block");
+                $("#numeroDoc").css("display", "block");
+                $("#tipoGenero").css("display", "none");
+                $("#fechaNac").css("display", "none");
+                $("#Acompanamiento").css("display", "none");
+                $("#Edad").css("display", "none");
+                $("#Nombres").css("display", "none");
+                $("#Apellidos").css("display", "none");
+                $("#NombreEst").css("display", "block");
+                $("#Telefono").css("display", "block");
+                $("#Email").css("display", "block");
+                $("#Condicion").css("display", "none");
+                $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
+            } else if(this.value == 3) {
+                $("#tipoIdent").css("display", "none");
+                $("#tipoEntidad").css("display", "none");
+                $("#tipoSociedad").css("display", "none");
+                $("#numeroDoc").css("display", "block");
+                $("#tipoGenero").css("display", "none");
+                $("#fechaNac").css("display", "none");
+                $("#Acompanamiento").css("display", "none");
+                $("#Edad").css("display", "none");
+                $("#Nombres").css("display", "none");
+                $("#Apellidos").css("display", "none");
+                $("#NombreEst").css("display", "block");
+                $("#Telefono").css("display", "block");
+                $("#Email").css("display", "block");
+                $("#Condicion").css("display", "none");
+                $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
+            } else if(this.value == 4) {
+                $("#tipoIdent").css("display", "none");
+                $("#tipoEntidad").css("display", "none");
+                $("#tipoSociedad").css("display", "none");
+                $("#numeroDoc").css("display", "none");
+                $("#tipoGenero").css("display", "none");
+                $("#fechaNac").css("display", "none");
+                $("#Acompanamiento").css("display", "block");
+                $("#Edad").css("display", "block");
+                $("#Nombres").css("display", "block");
+                $("#Apellidos").css("display", "block");
+                $("#NombreEst").css("display", "none");
+                $("#Telefono").css("display", "block");
+                $("#Email").css("display", "block");
+                $("#Condicion").css("display", "none");
+                $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
+            } else if(this.value == 5) {
+                $("#tipoIdent").css("display", "none");
+                $("#tipoEntidad").css("display", "none");
+                $("#tipoSociedad").css("display", "none");
+                $("#numeroDoc").css("display", "none");
+                $("#tipoGenero").css("display", "none");
+                $("#fechaNac").css("display", "none");
+                $("#Acompanamiento").css("display", "none");
+                $("#Edad").css("display", "none");
+                $("#Nombres").css("display", "none");
+                $("#Apellidos").css("display", "none");
+                $("#NombreEst").css("display", "none");
+                $("#Telefono").css("display", "block");
+                $("#Email").css("display", "block");
+                $("#Condicion").css("display", "block");
+                $("input:radio[name=entidadDistrital]:checked")[0].checked = false;
+            }
+        });
+    });
+
+    $("#autoriza2").on("click", function() {
+        $("#tipoPersona").css("display", "none");
+        $("#tipoIdent").css("display", "none");
+        $("#tipoEntidad").css("display", "none");
+        $("#tipoSociedad").css("display", "none");
+        $("#numeroDoc").css("display", "none");
+        $("#tipoGenero").css("display", "none");
+        $("#fechaNac").css("display", "none");
+        $("#Acompanamiento").css("display", "none");
+        $("#Edad").css("display", "none");
+        $("#Nombres").css("display", "none");
+        $("#Apellidos").css("display", "none");
+        $("#NombreEst").css("display", "none");
+        $("#Telefono").css("display", "none");
+        $("#Email").css("display", "none");
+        $("#Condicion").css("display", "block");
+        $("#tipo_persona").val('');
     });
 
     $( "#form" ).validate( {
 		rules: {
 			autoriza: 			{ required: true },
-			tipo_persona: 		{ required: true },
-            telefono:           { required: true },
 			asunto: 			{ required: true },
 			tipo_atencion: 		{ required: true },
-			palabra_clave: 		{ required: true },
 			tema: 				{ required: true },
-			email: 				{ required: true },
 			localidad: 			{ required: true },
-			upz: 				{ required: true },
+            upz:                { required: true },
 			barrio: 			{ required: true },
 			direccion: 			{ required: true },
 			estrato: 			{ required: true },
-			codigo_postal: 		{ required: true },
 			confirmar:   		{ required: true }
 		},
 		errorElement: "em",

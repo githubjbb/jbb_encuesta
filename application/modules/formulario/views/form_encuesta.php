@@ -458,6 +458,7 @@ function valid_field_servicio()
             changeMonth: true,
             changeYear: true,
             dateFormat: 'yy-mm-dd'
+            maxDate: 'now'
         });
     });
 </script>

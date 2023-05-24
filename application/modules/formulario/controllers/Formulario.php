@@ -130,6 +130,12 @@ class Formulario extends CI_Controller {
 		);
 		$data['listaGenero'] = $this->general_model->get_basic_search($arrParam);
 		$arrParam = array(
+			"table" => "param_tipo_acompanamiento",
+			"order" => "id_tipo_acompanamiento",
+			"id" => "x"
+		);
+		$data['listaAcompanamiento'] = $this->general_model->get_basic_search($arrParam);
+		$arrParam = array(
 			"table" => "param_condicion",
 			"order" => "id_condicion",
 			"id" => "x"
@@ -284,11 +290,23 @@ class Formulario extends CI_Controller {
 			$tipo_genero = $tipoGenero[0]['genero'];
 		}
 		$fecha_nac = $this->input->post('fecha_nacimiento');
+		$tipo_acompanamiento = $this->input->post('tipo_acompanamiento');
+		if(!empty($tipo_acompanamiento)) {
+			$arrParam = array(
+				"table" => "param_tipo_acompanamiento",
+				"order" => "id_tipo_acompanamiento",
+				"column" => "id_tipo_acompanamiento",
+				"id" => $tipo_acompanamiento
+			);
+			$tipoAcompanamiento = $this->general_model->get_basic_search($arrParam);
+			$tipo_acompanamiento = $tipoAcompanamiento[0]['tipo_acompanamiento'];
+		}
 		$edad = $this->input->post('edad');
 		$nombres = $this->input->post('nombres');
 		$apellidos = $this->input->post('apellidos');
 		$razon_social = $this->input->post('nombre_est');
 		$telefono = $this->input->post('telefono');
+		$email = $this->input->post('email');
 		$condicion = $this->input->post('condicion');
 		if(!empty($condicion)) {
 			$arrParam = array(
@@ -330,7 +348,6 @@ class Formulario extends CI_Controller {
 			$tipoTema = $this->general_model->get_basic_search($arrParam);
 			$tema = $tipoTema[0]['tema'];
 		}
-		$email = $this->input->post('email');
 		$localidad = $this->input->post('localidad');
 		if(!empty($localidad)) {
 			$arrParam = array(
@@ -410,55 +427,62 @@ class Formulario extends CI_Controller {
 					// Mensaje del correo
 					$msj = 'INFORMACIÓN SUMINISTRADA</br></br>';
 					$msj .= '<strong>Autoriza el Tratamiento de Datos Personales: </strong>' . $autoriza . '</br>';
-					$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
-					if ($this->input->post('tipo_persona') == 1) {
-						$msj .= '<strong>Tipo de Identificación: </strong>' . $tipo_ident . '</br>';
-						$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
-						$msj .= '<strong>Genero: </strong>' . $tipo_genero . '</br>';
-						$msj .= '<strong>Fecha de Nacimiento: </strong>' . $fecha_nac . '</br>';
-						$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
-						$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
-						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-						$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
-						$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
+					if ($this->input->post('autoriza') == 1) {
+						$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
+						if ($this->input->post('tipo_persona') == 1) {
+							$msj .= '<strong>Tipo de Identificación: </strong>' . $tipo_ident . '</br>';
+							$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+							$msj .= '<strong>Genero: </strong>' . $tipo_genero . '</br>';
+							$msj .= '<strong>Fecha de Nacimiento: </strong>' . $fecha_nac . '</br>';
+							$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
+							$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
+							$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+							$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+							$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
+							$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
+						}
+						else if ($this->input->post('tipo_persona') == 2) {
+							$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
+							$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+							$msj .= '<strong>Tipo de Entidad: </strong>' . $tipo_entidad . '</br>';
+							$msj .= '<strong>Tipo de Empresa/Sociedad: </strong>' . $tipo_sociedad . '</br>';
+							$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
+							$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+							$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+						}
+						else if ($this->input->post('tipo_persona') == 3) {
+							$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
+							$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+							$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
+							$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+							$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+						}
+						else if ($this->input->post('tipo_persona') == 4) {
+							$msj .= '<strong>Quien Realiza Acompañamiento: </strong>' . $acompanamiento . '</br>';
+							$msj .= '<strong>Edad: </strong>' . $edad . '</br>';
+							$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
+							$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
+							$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+							$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+						}
+						else if ($this->input->post('tipo_persona') == 5) {
+							$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+							$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+							$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
+							$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
+						}
 					}
-					else if ($this->input->post('tipo_persona') == 2) {
-						$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
-						$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
-						$msj .= '<strong>Tipo de Entidad: </strong>' . $tipo_entidad . '</br>';
-						$msj .= '<strong>Tipo de Empresa/Sociedad: </strong>' . $tipo_sociedad . '</br>';
-						$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
-						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-					}
-					else if ($this->input->post('tipo_persona') == 3) {
-						$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
-						$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
-						$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
-						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-					}
-					else if ($this->input->post('tipo_persona') == 4) {
-						$msj .= '<strong>Edad: </strong>' . $edad . '</br>';
-						$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
-						$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
-						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-					}
-					else if ($this->input->post('tipo_persona') == 5) {
-						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-						$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
-						$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
-					}
-					$msj .= '<strong>Asunto: </strong>' . $asunto . '</br>';
 					$msj .= '<strong>Tipo de Petición: </strong>' . $tipo_atencion . '</br>';
 					$msj .= '<strong>Palabra Clave: </strong>' . $palabra_clave . '</br>';
 					$msj .= '<strong>Tema: </strong>' . $tema . '</br>';
-					$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
 					$msj .= '<strong>Localidad: </strong>' . $localidad . '</br>';
 					$msj .= '<strong>UPZ: </strong>' . $upz . '</br>';
 					$msj .= '<strong>Barrio: </strong>' . $barrio . '</br>';
 					$msj .= '<strong>Dirección: </strong>' . $direccion . '</br>';
 					$msj .= '<strong>Estrato: </strong>' . $estrato . '</br>';
 					$msj .= '<strong>Código Postal: </strong>' . $codigo_postal . '</br>';
-					$msj .= '<strong>Certificación: </strong>' . $confirmar . '</br>';
+					$msj .= '<strong>Certifica Información: </strong>' . $confirmar . '</br></br>';
+					$msj .= '<strong>Asunto: </strong>' . $asunto . '</br>';
 					$mensaje = "<p>$msj</p><br>";
 					$mensaje .= "<p>Cordialmente,<br><strong>$paramCompanyName</strong></p>";
 					// Configuracion envio de ccorreo
@@ -494,55 +518,62 @@ class Formulario extends CI_Controller {
 				// Mensaje del correo
 				$msj = 'INFORMACIÓN SUMINISTRADA</br></br>';
 				$msj .= '<strong>Autoriza el Tratamiento de Datos Personales: </strong>' . $autoriza . '</br>';
-				$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
-				if ($this->input->post('tipo_persona') == 1) {
-					$msj .= '<strong>Tipo de Identificación: </strong>' . $tipo_ident . '</br>';
-					$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
-					$msj .= '<strong>Genero: </strong>' . $tipo_genero . '</br>';
-					$msj .= '<strong>Fecha de Nacimiento: </strong>' . $fecha_nac . '</br>';
-					$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
-					$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
-					$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-					$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
-					$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
+				if ($this->input->post('autoriza') == 1) {
+					$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
+					if ($this->input->post('tipo_persona') == 1) {
+						$msj .= '<strong>Tipo de Identificación: </strong>' . $tipo_ident . '</br>';
+						$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+						$msj .= '<strong>Genero: </strong>' . $tipo_genero . '</br>';
+						$msj .= '<strong>Fecha de Nacimiento: </strong>' . $fecha_nac . '</br>';
+						$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
+						$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
+						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+						$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+						$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
+						$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
+					}
+					else if ($this->input->post('tipo_persona') == 2) {
+						$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
+						$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+						$msj .= '<strong>Tipo de Entidad: </strong>' . $tipo_entidad . '</br>';
+						$msj .= '<strong>Tipo de Empresa/Sociedad: </strong>' . $tipo_sociedad . '</br>';
+						$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
+						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+						$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+					}
+					else if ($this->input->post('tipo_persona') == 3) {
+						$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
+						$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+						$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
+						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+						$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+					}
+					else if ($this->input->post('tipo_persona') == 4) {
+						$msj .= '<strong>Quien Realiza Acompañamiento: </strong>' . $acompanamiento . '</br>';
+						$msj .= '<strong>Edad: </strong>' . $edad . '</br>';
+						$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
+						$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
+						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+						$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+					}
+					else if ($this->input->post('tipo_persona') == 5) {
+						$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+						$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+						$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
+						$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
+					}
 				}
-				else if ($this->input->post('tipo_persona') == 2) {
-					$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
-					$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
-					$msj .= '<strong>Tipo de Entidad: </strong>' . $tipo_entidad . '</br>';
-					$msj .= '<strong>Tipo de Empresa/Sociedad: </strong>' . $tipo_sociedad . '</br>';
-					$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
-					$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-				}
-				else if ($this->input->post('tipo_persona') == 3) {
-					$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
-					$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
-					$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
-					$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-				}
-				else if ($this->input->post('tipo_persona') == 4) {
-					$msj .= '<strong>Edad: </strong>' . $edad . '</br>';
-					$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
-					$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
-					$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-				}
-				else if ($this->input->post('tipo_persona') == 5) {
-					$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
-					$msj .= '<strong>Condición: </strong>' . $condicion . '</br>';
-					$msj .= '<strong>Pertenece a una Entidad Distrital: </strong>' . $entidad_distrital . '</br>';
-				}
-				$msj .= '<strong>Asunto: </strong>' . $asunto . '</br>';
 				$msj .= '<strong>Tipo de Petición: </strong>' . $tipo_atencion . '</br>';
 				$msj .= '<strong>Palabra Clave: </strong>' . $palabra_clave . '</br>';
 				$msj .= '<strong>Tema: </strong>' . $tema . '</br>';
-				$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
 				$msj .= '<strong>Localidad: </strong>' . $localidad . '</br>';
 				$msj .= '<strong>UPZ: </strong>' . $upz . '</br>';
 				$msj .= '<strong>Barrio: </strong>' . $barrio . '</br>';
 				$msj .= '<strong>Dirección: </strong>' . $direccion . '</br>';
 				$msj .= '<strong>Estrato: </strong>' . $estrato . '</br>';
 				$msj .= '<strong>Código Postal: </strong>' . $codigo_postal . '</br>';
-				$msj .= '<strong>Certifica Información: </strong>' . $confirmar . '</br>';
+				$msj .= '<strong>Certifica Información: </strong>' . $confirmar . '</br></br>';
+				$msj .= '<strong>Asunto: </strong>' . $asunto . '</br>';
 				$mensaje = "<p>$msj</p><br>";
 				$mensaje .= "<p>Cordialmente,<br><strong>$paramCompanyName</strong></p>";
 				// Configuracion envio de ccorreo

@@ -194,14 +194,20 @@
 			$documento = $this->input->post('documento');
 			$tipo_genero = $this->input->post('tipo_genero');
 			$fecha_nac = $this->input->post('fecha_nacimiento');
+			$acompanamiento = $this->input->post('tipo_acompanamiento');
 			$edad = $this->input->post('edad');
 			$nombres = $this->input->post('nombres');
 			$apellidos = $this->input->post('apellidos');
 			$razon_social = $this->input->post('nombre_est');
 			$telefono = $this->input->post('telefono');
+			$email = $this->input->post('email');
 			$condicion = $this->input->post('condicion');
 			$entidad_distrital = $this->input->post('entidadDistrital');
+			$palabra_clave = $this->input->post('palabra_clave');
 			$confirmar = $this->input->post('confirmar');
+			if (empty($tipo_persona)) {
+				$tipo_persona = NULL;
+			}
 			if (empty($tipo_ident)) {
 				$tipo_ident = NULL;
 				if ($tipo_persona == 2 || $tipo_persona == 3) {
@@ -223,23 +229,41 @@
 			if (empty($fecha_nac)) {
 				$fecha_nac = NULL;
 			}
+			if (empty($acompanamiento)) {
+				$acompanamiento = NULL;
+			}
 			if (empty($edad)) {
 				$edad = NULL;
 			}
 			if (empty($nombres)) {
-				$nombres = '';
+				$nombres = NULL;
 			}
 			if (empty($apellidos)) {
-				$apellidos = '';
+				$apellidos = NULL;
 			}
 			if (empty($razon_social)) {
-				$razon_social = '';
+				$razon_social = NULL;
+			}
+			if (empty($telefono)) {
+				$telefono = NULL;
+			}
+			if (empty($email)) {
+				$email = NULL;
 			}
 			if (empty($condicion)) {
 				$condicion = NULL;
 			}
+			if (empty($path)) {
+				$path = NULL;
+			}
+			if (empty($palabra_clave)) {
+				$palabra_clave = NULL;
+			}
 			if (empty($entidad_distrital)) {
 				$entidad_distrital = NULL;
+			}
+			if (empty($codigo_postal)) {
+				$codigo_postal = NULL;
 			}
 			if (!empty($confirmar)) { 
                 if ($confirmar == 'on') {
@@ -258,6 +282,7 @@
 				'numero_documento' => $documento,
 				'fk_id_genero' => $tipo_genero,
 				'fecha_nacimiento' => $fecha_nac,
+				'fk_id_tipo_acompanamiento' => $acompanamiento,
 				'edad' => $edad,
 				'nombres' => $nombres,
 				'apellidos' => $apellidos,
@@ -268,15 +293,15 @@
 				'asunto' => $this->input->post('asunto'),
 				'archivo' => $path,
 				'fk_id_tipo_atencion' => $this->input->post('tipo_atencion'),
-				'palabra_clave' => $this->input->post('palabra_clave'),
+				'palabra_clave' => $palabra_clave,
 				'fk_id_tema' => $this->input->post('tema'),
-				'email' => $this->input->post('email'),
+				'email' => $email,
 				'fk_id_localidad' => $this->input->post('localidad'),
 				'fk_id_upz' => $this->input->post('upz'),
 				'fk_id_barrio' => $this->input->post('barrio'),
 				'direccion' => $this->input->post('direccion'),
 				'estrato' => $this->input->post('estrato'),
-				'codigo_postal' => $this->input->post('codigo_postal'),
+				'codigo_postal' => $codigo_postal,
 				'confirmar' => $conf,
 				'fecha_registro' => date("Y-m-d")
 			);

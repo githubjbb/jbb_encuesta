@@ -42,7 +42,7 @@
 				}
 				if (array_key_exists('from', $arrData) && $arrData['from'] != '') {
 					$this->db->where('fecha_registro >=', $arrData["from"]);
-				}				
+				}
 				if (array_key_exists('to', $arrData) && $arrData['to'] != '' && $arrData['from'] != '') {
 					$this->db->where('fecha_registro <', $arrData["to"]);
 				}
@@ -61,12 +61,13 @@
 		 */
 		public function get_info_form_atencion($arrData)
 		{
-				$this->db->select('P.*, tipo_persona, tipo_identificacion, tipo_entidad, tipo_sociedad, genero, condicion, tipo_atencion, tema, localidad, upz, barrio');
-				$this->db->join('param_tipo_persona TP', 'TP.id_tipo_persona = P.fk_id_tipo_persona', 'INNER');
+				$this->db->select('P.*, tipo_persona, tipo_identificacion, tipo_entidad, tipo_sociedad, genero, tipo_acompanamiento, condicion, tipo_atencion, tema, localidad, upz, barrio');
+				$this->db->join('param_tipo_persona TP', 'TP.id_tipo_persona = P.fk_id_tipo_persona', 'LEFT');
 				$this->db->join('param_tipo_identificacion TI', 'TI.id_tipo_identificacion = P.fk_id_tipo_identificacion', 'LEFT');
 				$this->db->join('param_tipo_entidad TE', 'TE.id_tipo_entidad = P.fk_id_tipo_entidad', 'LEFT');
 				$this->db->join('param_tipo_sociedad TS', 'TS.id_tipo_sociedad = P.fk_id_tipo_sociedad', 'LEFT');
 				$this->db->join('param_genero G', 'G.id_genero = P.fk_id_genero', 'LEFT');
+				$this->db->join('param_tipo_acompanamiento A', 'A.id_tipo_acompanamiento = P.fk_id_tipo_acompanamiento', 'LEFT');
 				$this->db->join('param_condicion C', 'C.id_condicion = P.fk_id_condicion', 'LEFT');
 				$this->db->join('param_tipo_atencion TA', 'TA.id_tipo_atencion = P.fk_id_tipo_atencion', 'INNER');
 				$this->db->join('param_tema T', 'T.id_tema = P.fk_id_tema', 'INNER');

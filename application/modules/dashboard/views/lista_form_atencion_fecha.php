@@ -85,7 +85,7 @@
                                 <th class="text-center">Número Documento</th>
                                 <th class="text-center">Razón Social</th>
                                 <th class="text-center">Nombre</th>
-                                <th class="text-center">Teléfono</th>
+                                <th class="text-center">Correo Electrónico</th>
                                 <th class="text-center">Archivo</th>
 							</tr>
 						</thead>
@@ -101,7 +101,7 @@
                                 echo '<td class="text-center">' . $lista['numero_documento'] . '</td>';
                                 echo '<td class="text-center">' . $lista['razon_social'] . '</td>';
                                 echo '<td class="text-center">' . $lista['nombres'] . ' ' . $lista['apellidos'] . '</td>';
-                                echo '<td class="text-center">' . $lista['telefono'] . '</td>';
+                                echo '<td class="text-center">' . $lista['email'] . '</td>';
                                 if ($lista['archivo'] != '') {
                         ?>
                                 	<td class="text-center"><a href="<?php echo base_url("files/". $lista['archivo']); ?>" download="<?php echo $lista['archivo']; ?>" class="btn btn-success btn-sm"><span class="fa fa-download"></span></a></td>
