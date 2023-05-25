@@ -458,7 +458,7 @@ class Formulario extends CI_Controller {
 							$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
 						}
 						else if ($this->input->post('tipo_persona') == 4) {
-							$msj .= '<strong>Quien Realiza Acompañamiento: </strong>' . $acompanamiento . '</br>';
+							$msj .= '<strong>Quien Realiza Acompañamiento: </strong>' . $tipo_acompanamiento . '</br>';
 							$msj .= '<strong>Edad: </strong>' . $edad . '</br>';
 							$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
 							$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
@@ -549,7 +549,7 @@ class Formulario extends CI_Controller {
 						$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
 					}
 					else if ($this->input->post('tipo_persona') == 4) {
-						$msj .= '<strong>Quien Realiza Acompañamiento: </strong>' . $acompanamiento . '</br>';
+						$msj .= '<strong>Quien Realiza Acompañamiento: </strong>' . $tipo_acompanamiento . '</br>';
 						$msj .= '<strong>Edad: </strong>' . $edad . '</br>';
 						$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
 						$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
