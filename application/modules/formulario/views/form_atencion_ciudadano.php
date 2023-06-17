@@ -242,7 +242,7 @@
                                                 </div>
                                                 <div class="alert alert-warning">
                                                     <strong>TENER EN CUENTA :</strong><br>
-                                                    Formatos Permitidos : pdf - txt - doc - docx - xls - xlsx - png - jpg<br>
+                                                    Formatos Permitidos : pdf - txt - doc - docx - xls - xlsx - png - jpg - jpeg - rar - zip<br>
                                                     Tamaño Máximo : 3048 KB<br>
                                                     Ancho Máximo : 2024 píxeles<br>
                                                     Altura Máxima : 2024 píxeles<br>

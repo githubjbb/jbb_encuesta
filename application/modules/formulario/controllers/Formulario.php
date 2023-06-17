@@ -391,8 +391,8 @@ class Formulario extends CI_Controller {
 			$confirmar = 'No';
 		}
 		// Configuracion encabezado correo
-		// $to = "correspondenciajbb@jbb.gov.co";
-		$to = "andres.cubillos@jbb.gov.co";
+		//$to = "andres.cubillos@jbb.gov.co";
+		$to = "correspondenciajbb@jbb.gov.co";
 		$arrParam2 = array(
 			"table" => "parametros",
 			"order" => "id_parametro",
@@ -409,7 +409,7 @@ class Formulario extends CI_Controller {
 		$num = rand(100000,999999);
 		$config['upload_path'] = './files/';
 		$config['overwrite'] = TRUE;
-		$config['allowed_types'] = 'pdf|txt|doc|docx|xls|xlsx|png|jpg|jpeg';
+		$config['allowed_types'] = 'pdf|txt|doc|docx|xls|xlsx|png|jpg|jpeg|rar|zip';
 		$config['max_size'] = '3048';
 		$config['max_width'] = '2024';
 		$config['max_height'] = '2024';
