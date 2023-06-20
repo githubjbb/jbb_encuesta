@@ -391,8 +391,8 @@ class Formulario extends CI_Controller {
 			$confirmar = 'No';
 		}
 		// Configuracion encabezado correo
-		//$to = "andres.cubillos@jbb.gov.co";
-		$to = "correspondenciajbb@jbb.gov.co";
+		$to = "andres.cubillos@jbb.gov.co";
+		//$to = "correspondenciajbb@jbb.gov.co";
 		$arrParam2 = array(
 			"table" => "parametros",
 			"order" => "id_parametro",
@@ -425,7 +425,7 @@ class Formulario extends CI_Controller {
 				$path = $file_info['file_name'];
 				if ($this->formulario_model->saveFormularioPQRSD($path)) {
 					// Mensaje del correo
-					$msj = 'INFORMACIÓN SUMINISTRADA</br></br>';
+					$msj = 'DATOS DEL SOLICITANTE</br></br>';
 					$msj .= '<strong>Autoriza el Tratamiento de Datos Personales: </strong>' . $autoriza . '</br>';
 					if ($this->input->post('autoriza') == 1) {
 						$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
@@ -516,7 +516,7 @@ class Formulario extends CI_Controller {
 		} else {
 			if ($this->formulario_model->saveFormularioPQRSD()) {
 				// Mensaje del correo
-				$msj = 'INFORMACIÓN SUMINISTRADA</br></br>';
+				$msj = 'DATOS DEL SOLICITANTE</br></br>';
 				$msj .= '<strong>Autoriza el Tratamiento de Datos Personales: </strong>' . $autoriza . '</br>';
 				if ($this->input->post('autoriza') == 1) {
 					$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
@@ -615,6 +615,6 @@ class Formulario extends CI_Controller {
 	{
 		$data['view'] = 'form_mensaje';
 		$this->load->view('layout_calendar', $data);
-		header("refresh:5; url=formulario/atencionCiudadano");
+		header("refresh:5; url=atencionCiudadano");
 	}
 }
