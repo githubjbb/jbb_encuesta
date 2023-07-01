@@ -452,17 +452,6 @@ function valid_field_servicio()
                                 </div>
                             </div>
 
-<script>
-    $( function() {
-        $( "#fecha" ).datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: 'yy-mm-dd'
-            maxDate: 'now'
-        });
-    });
-</script>
-
                             <div class="col-sm-6">
                                 <p class="text-left"><strong>Fecha:</strong></p>
                                 <div class="form-group">

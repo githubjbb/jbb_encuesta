@@ -1,20 +1,29 @@
 $( document ).ready( function () {
+
+	$( function() {
+        $( "#fecha" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            maxDate: 'now'
+        });
+    });
 			
 	$( "#form" ).validate( {
 		rules: {
-			hdd_rango_edad: 		{ required: true },
+			hdd_rango_edad: 	{ required: true },
 			hdd_poblacion: 		{ required: true },
-			poblacion_cual: 			{ minlength: 4, maxlength:40},
+			poblacion_cual: 	{ minlength: 4, maxlength:40},
 			hdd_genero: 		{ required: true },
-			genero_otro: 			{ minlength: 4, maxlength:20},
-			hdd_nacionalidad: 		{ required: true },
+			genero_otro: 		{ minlength: 4, maxlength:20},
+			hdd_nacionalidad: 	{ required: true },
 			localidad: 			{ minlength: 4, maxlength:50},
 			barrio: 			{ minlength: 4, maxlength:50},
 			servicio: 			{ required: true, minlength: 4, maxlength:100},
-			servicio_cual: 			{ minlength: 4, maxlength:100},
+			servicio_cual: 		{ minlength: 4, maxlength:100},
 			hdd_servicio: 		{ required: true },
 			nombre_servidor:    { minlength: 4, maxlength:20},
-			fecha: 		{ required: true }
+			fecha: 				{ required: true }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
