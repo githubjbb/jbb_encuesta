@@ -617,4 +617,317 @@ class Formulario extends CI_Controller {
 		$this->load->view('layout_calendar', $data);
 		header("refresh:5; url=atencionCiudadano");
 	}
+
+	/**
+	 * Formulario de ventanilla virtual
+	 * @author AOCUBILLOSA
+     * @since 16/07/2023
+	 */
+	public function ventanillaVirtual()
+	{
+		$data['listaTipoPersonas'] = $this->formulario_model->get_tipo_persona();
+		$arrParam = array(
+			"table" => "param_tipo_identificacion",
+			"order" => "id_tipo_identificacion",
+			"id" => "x"
+		);
+		$data['listaTipoIdent'] = $this->general_model->get_basic_search($arrParam);
+		$arrParam = array(
+			"table" => "param_tipo_entidad",
+			"order" => "id_tipo_entidad",
+			"id" => "x"
+		);
+		$data['listaTipoEntidad'] = $this->general_model->get_basic_search($arrParam);
+		$arrParam = array(
+			"table" => "param_genero",
+			"order" => "id_genero",
+			"id" => "x"
+		);
+		$data['listaGenero'] = $this->general_model->get_basic_search($arrParam);
+		$arrParam = array(
+			"table" => "param_tipo_atencion",
+			"order" => "id_tipo_atencion",
+			"id" => "x"
+		);
+		$data['listaTipoAtencion'] = $this->general_model->get_basic_search($arrParam);
+		$data['view'] = 'form_ventanilla_virtual';
+		$this->load->view('layout_calendar', $data);
+	}
+
+	/**
+	 * Save formulario de ventanilla virtual
+	 * @author AOCUBILLOSA
+     * @since 30/07/2023
+	 */
+    function enviar_info_ventanillaVirtual()
+	{
+		$autoriza = $this->input->post('autoriza');
+		if($autoriza == 1) {
+			$autoriza = 'Si';
+		} else if($autoriza == 2) {
+			$autoriza = 'No';
+		}
+		$tipo_persona = $this->input->post('tipo_persona');
+		if(!empty($tipo_persona)) {
+			$arrParam = array(
+				"table" => "param_tipo_persona",
+				"order" => "id_tipo_persona",
+				"column" => "id_tipo_persona",
+				"id" => $tipo_persona
+			);
+			$tipoPersona = $this->general_model->get_basic_search($arrParam);
+			$tipo_persona = $tipoPersona[0]['tipo_persona'];
+		}
+		$tipo_ident = $this->input->post('tipo_ident');
+		if(!empty($tipo_ident)) {
+			$arrParam = array(
+				"table" => "param_tipo_identificacion",
+				"order" => "id_tipo_identificacion",
+				"column" => "id_tipo_identificacion",
+				"id" => $tipo_ident
+			);
+			$tipoIdent = $this->general_model->get_basic_search($arrParam);
+			$tipo_ident = $tipoIdent[0]['tipo_identificacion'];
+		}
+		$tipo_entidad = $this->input->post('tipo_entidad');
+		if(!empty($tipo_entidad)) {
+			$arrParam = array(
+				"table" => "param_tipo_entidad",
+				"order" => "id_tipo_entidad",
+				"column" => "id_tipo_entidad",
+				"id" => $tipo_entidad
+			);
+			$tipoEntidad = $this->general_model->get_basic_search($arrParam);
+			$tipo_entidad = $tipoEntidad[0]['tipo_entidad'];
+		}
+		$tipo_sociedad = $this->input->post('tipo_sociedad');
+		if(!empty($tipo_sociedad)) {
+			$arrParam = array(
+				"table" => "param_tipo_sociedad",
+				"order" => "id_tipo_sociedad",
+				"column" => "id_tipo_sociedad",
+				"id" => $tipo_sociedad
+			);
+			$tipoSociedad = $this->general_model->get_basic_search($arrParam);
+			$tipo_sociedad = $tipoSociedad[0]['tipo_sociedad'];
+		}
+		$documento = $this->input->post('documento');
+		$tipo_genero = $this->input->post('tipo_genero');
+		if(!empty($tipo_genero)) {
+			$arrParam = array(
+				"table" => "param_genero",
+				"order" => "id_genero",
+				"column" => "id_genero",
+				"id" => $tipo_genero
+			);
+			$tipoGenero = $this->general_model->get_basic_search($arrParam);
+			$tipo_genero = $tipoGenero[0]['genero'];
+		}
+		$fecha_nac = $this->input->post('fecha_nacimiento');
+		$nombres = $this->input->post('nombres');
+		$apellidos = $this->input->post('apellidos');
+		$razon_social = $this->input->post('nombre_est');
+		$telefono = $this->input->post('telefono');
+		$email = $this->input->post('email');
+		$direccion = $this->input->post('direccion');
+		$tipo_atencion = $this->input->post('tipo_atencion');
+		if(!empty($tipo_atencion)) {
+			$arrParam = array(
+				"table" => "param_tipo_atencion",
+				"order" => "id_tipo_atencion",
+				"column" => "id_tipo_atencion",
+				"id" => $tipo_atencion
+			);
+			$tipoAtencion = $this->general_model->get_basic_search($arrParam);
+			$tipo_atencion = $tipoAtencion[0]['tipo_atencion'];
+		}
+		$asunto = $this->input->post('asunto');
+		// Configuracion encabezado correo
+		//$to = "andres.cubillos@jbb.gov.co";
+		$to = "correspondenciajbb@jbb.gov.co";
+		$arrParam2 = array(
+			"table" => "parametros",
+			"order" => "id_parametro",
+			"id" => "x"
+		);
+		$parametric = $this->general_model->get_basic_search($arrParam2);
+		$paramHost = $parametric[0]["parametro_valor"];
+		$paramUsername = $parametric[1]["parametro_valor"];
+		$paramPassword = $parametric[2]["parametro_valor"];
+		$paramFromName = $parametric[3]["parametro_valor"];
+		$paramCompanyName = $parametric[4]["parametro_valor"];
+		$paramAPPName = $parametric[6]["parametro_valor"];
+		// Configuracion cargue de archivos
+		$ext_1 = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
+		$ext_2 = pathinfo($_FILES['anexos']['name'], PATHINFO_EXTENSION);
+		if ($ext_1 == 'txt' || $ext_1 == 'doc' || $ext_1 == 'docx' || $ext_1 == 'xls' || $ext_1 == 'xlsx' || $ext_1 == 'png' || $ext_1 == 'jpg' || $ext_1 == 'jpeg' || $ext_1 == 'rar' || $ext_1 == 'zip' || $ext_2 == 'pdf') {
+			$error = 'El tipo de archivo que esta tratando de subir no está permitido';
+			$this->session->set_flashdata('retornoError', $error);
+		} else {
+			$num1 = rand(100000,999999);
+			$config['upload_path'] = './files/ventanilla/';
+			$config['overwrite'] = TRUE;
+			$config['allowed_types'] = 'pdf|txt|doc|docx|xls|xlsx|png|jpg|jpeg|rar|zip';
+			$config['max_size'] = '4096';
+			$config['max_width'] = '2024';
+			$config['max_height'] = '2024';
+			$config['file_name'] = date('Y') .''. date('m') .''. date('d') .''. date('H') .''. date('i') .''. date('s') .''. $num1;
+			$this->load->library('upload', $config);
+			if ($_FILES['userfile']['name'] != "") {
+				if (!$this->upload->do_upload('userfile')) {
+					$error = $this->upload->display_errors();
+					$this->session->set_flashdata('retornoError', html_escape(substr($error, 3, -4)));
+				} else {
+					$file_info = $this->upload->data();
+					$data = array('upload_data' => $this->upload->data());
+					$path = $file_info['file_name'];
+					if ($_FILES['anexos']['name'] != "") {
+						if (!$this->upload->do_upload('anexos')) {
+							$error = $this->upload->display_errors();
+							$this->session->set_flashdata('retornoError', html_escape(substr($error, 3, -4)));
+							unlink(FCPATH . './files/ventanilla/' . $path);
+						} else {
+							$file_info2 = $this->upload->data();
+							$data = array('upload_data' => $this->upload->data());
+							$anexos = $file_info2['file_name'];
+
+							if ($this->formulario_model->saveVentanillaVirtual($path, $anexos)) {
+								// Mensaje del correo
+								$msj = 'DATOS DEL SOLICITANTE</br></br>';
+								$msj .= '<strong>Autoriza el Tratamiento de Datos Personales: </strong>' . $autoriza . '</br>';
+								if ($this->input->post('autoriza') == 1) {
+									$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
+									if ($this->input->post('tipo_persona') == 1) {
+										$msj .= '<strong>Tipo de Identificación: </strong>' . $tipo_ident . '</br>';
+										$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+										$msj .= '<strong>Genero: </strong>' . $tipo_genero . '</br>';
+										$msj .= '<strong>Fecha de Nacimiento: </strong>' . $fecha_nac . '</br>';
+										$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
+										$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
+										$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+										$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+										$msj .= '<strong>Dirección: </strong>' . $direccion . '</br>';
+									}
+									else if ($this->input->post('tipo_persona') == 2) {
+										$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
+										$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+										$msj .= '<strong>Tipo de Entidad: </strong>' . $tipo_entidad . '</br>';
+										$msj .= '<strong>Tipo de Empresa/Sociedad: </strong>' . $tipo_sociedad . '</br>';
+										$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
+										$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+										$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+										$msj .= '<strong>Dirección: </strong>' . $direccion . '</br>';
+									}
+								}
+								$msj .= '<strong>Tipo de Petición: </strong>' . $tipo_atencion . '</br>';
+								$msj .= '<strong>Asunto: </strong>' . $asunto . '</br>';
+								$mensaje = "<p>$msj</p><br>";
+								$mensaje .= "<p>Cordialmente,<br><strong>$paramCompanyName</strong></p>";
+								// Configuracion envio de ccorreo
+								require_once(APPPATH.'libraries/PHPMailer_5.2.4/class.phpmailer.php');
+						        $mail = new PHPMailer(true);
+						        $mail->IsSMTP(); // Set mailer to use SMTP
+						        $mail->Host = $paramHost; // Specif SMTP server
+						        $mail->SMTPSecure= "tls"; // Used instead of TLS when only POP mail is selected
+						        $mail->Port = 587; // Used instead of 587 when only POP mail is selected
+						        $mail->SMTPAuth = true;
+								$mail->Username = $paramUsername; // SMTP username
+						        $mail->Password = $paramPassword; // SMTP password
+						        $mail->FromName = $paramFromName;
+						        $mail->From = $paramUsername;
+						        $mail->AddAddress($to, $paramAPPName);
+						        $mail->WordWrap = 50;
+						        $mail->CharSet = 'UTF-8';
+						        $mail->IsHTML(true); // Set email format to HTML
+						        $mail->Subject = $paramAPPName . ' - ' . $paramCompanyName;
+						        $mail->Body = nl2br($mensaje, false);
+						        $mail->AddAttachment($_FILES['userfile']['tmp_name'], $_FILES['userfile']['name']);
+						        $mail->AddAttachment($_FILES['anexos']['tmp_name'], $_FILES['anexos']['name']);
+								if ($mail->Send()) {
+									$this->session->set_flashdata('retornoExito', 'Se registraron sus respuestas.<br><br>Gracias por brindarnos su opinión sobre la atención recibida.');
+								} else {
+									$this->session->set_flashdata('retornoError', '<strong>Error:</strong> Ocurrio algun error en el envio del email.');
+								}
+							} else {
+								$this->session->set_flashdata('retornoError', '<strong>Error:</strong> Ocurrio algun error en la base de datos.');
+							}
+						}
+					} else {
+						if ($this->formulario_model->saveVentanillaVirtual($path)) {
+							// Mensaje del correo
+							$msj = 'DATOS DEL SOLICITANTE</br></br>';
+							$msj .= '<strong>Autoriza el Tratamiento de Datos Personales: </strong>' . $autoriza . '</br>';
+							if ($this->input->post('autoriza') == 1) {
+								$msj .= '<strong>Tipo de Persona: </strong>' . $tipo_persona . '</br>';
+								if ($this->input->post('tipo_persona') == 1) {
+									$msj .= '<strong>Tipo de Identificación: </strong>' . $tipo_ident . '</br>';
+									$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+									$msj .= '<strong>Genero: </strong>' . $tipo_genero . '</br>';
+									$msj .= '<strong>Fecha de Nacimiento: </strong>' . $fecha_nac . '</br>';
+									$msj .= '<strong>Nombres: </strong>' . $nombres . '</br>';
+									$msj .= '<strong>Apellidos: </strong>' . $apellidos . '</br>';
+									$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+									$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+									$msj .= '<strong>Dirección: </strong>' . $direccion . '</br>';
+								}
+								else if ($this->input->post('tipo_persona') == 2) {
+									$msj .= '<strong>Tipo de Identificación: </strong>NIT</br>';
+									$msj .= '<strong>Número de Documento: </strong>' . $documento . '</br>';
+									$msj .= '<strong>Tipo de Entidad: </strong>' . $tipo_entidad . '</br>';
+									$msj .= '<strong>Tipo de Empresa/Sociedad: </strong>' . $tipo_sociedad . '</br>';
+									$msj .= '<strong>Razón Social: </strong>' . $razon_social . '</br>';
+									$msj .= '<strong>Teléfono: </strong>' . $telefono . '</br>';
+									$msj .= '<strong>Correo Electrónico: </strong>' . $email . '</br>';
+									$msj .= '<strong>Dirección: </strong>' . $direccion . '</br>';
+								}
+							}
+							$msj .= '<strong>Tipo de Petición: </strong>' . $tipo_atencion . '</br>';
+							$msj .= '<strong>Asunto: </strong>' . $asunto . '</br>';
+							$mensaje = "<p>$msj</p><br>";
+							$mensaje .= "<p>Cordialmente,<br><strong>$paramCompanyName</strong></p>";
+							// Configuracion envio de ccorreo
+							require_once(APPPATH.'libraries/PHPMailer_5.2.4/class.phpmailer.php');
+					        $mail = new PHPMailer(true);
+					        $mail->IsSMTP(); // Set mailer to use SMTP
+					        $mail->Host = $paramHost; // Specif SMTP server
+					        $mail->SMTPSecure= "tls"; // Used instead of TLS when only POP mail is selected
+					        $mail->Port = 587; // Used instead of 587 when only POP mail is selected
+					        $mail->SMTPAuth = true;
+							$mail->Username = $paramUsername; // SMTP username
+					        $mail->Password = $paramPassword; // SMTP password
+					        $mail->FromName = $paramFromName;
+					        $mail->From = $paramUsername;
+					        $mail->AddAddress($to, $paramAPPName);
+					        $mail->WordWrap = 50;
+					        $mail->CharSet = 'UTF-8';
+					        $mail->IsHTML(true); // Set email format to HTML
+					        $mail->Subject = $paramAPPName . ' - ' . $paramCompanyName;
+					        $mail->Body = nl2br($mensaje, false);
+					        $mail->AddAttachment($_FILES['userfile']['tmp_name'], $_FILES['userfile']['name']);
+							if ($mail->Send()) {
+								$this->session->set_flashdata('retornoExito', 'Se registraron sus respuestas.<br><br>Gracias por brindarnos su opinión sobre la atención recibida.');
+							} else {
+								$this->session->set_flashdata('retornoError', '<strong>Error:</strong> Ocurrio algun error en el envio del email.');
+							}
+						} else {
+							$this->session->set_flashdata('retornoError', '<strong>Error:</strong> Ocurrio algun error en la base de datos.');
+						}
+					}
+				}
+			}
+		}
+    	redirect('formulario/formMensajeVentanilla');
+    }
+
+    /**
+	 * Save formulario ventanilla virtual
+	 * @author AOCUBILLOSA
+     * @since 18/05/2023
+	 */
+    function formMensajeVentanilla()
+	{
+		$data['view'] = 'form_mensaje';
+		$this->load->view('layout_calendar', $data);
+		header("refresh:5; url=ventanillaVirtual");
+	}
 }

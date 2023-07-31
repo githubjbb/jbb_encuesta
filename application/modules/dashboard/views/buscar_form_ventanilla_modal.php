@@ -5,7 +5,7 @@
 </div>
 
 <div class="modal-body">
-	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_formularios_atencion'); ?>">
+	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_formularios_ventanilla'); ?>">
 
 <script>
 	$( function() {

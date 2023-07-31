@@ -56,7 +56,7 @@
 		}
 
 		/**
-		 * Consulta registros encuenta de percepcion
+		 * Consulta registros formulario atencion al ciudadano
 		 * @since 20/05/2023
 		 */
 		public function get_info_form_atencion($arrData)
@@ -85,6 +85,37 @@
 				}
 				$this->db->order_by('fecha_registro', 'asc');
 				$query = $this->db->get('formulario_pqrsd P');
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consulta registros formulario ventanilla virtual
+		 * @since 31/07/2023
+		 */
+		public function get_info_form_ventanilla($arrData)
+		{
+				$this->db->select('V.*, tipo_persona, tipo_identificacion, tipo_entidad, tipo_sociedad, genero, tipo_atencion');
+				$this->db->join('param_tipo_persona TP', 'TP.id_tipo_persona = V.fk_id_tipo_persona', 'LEFT');
+				$this->db->join('param_tipo_identificacion TI', 'TI.id_tipo_identificacion = V.fk_id_tipo_identificacion', 'LEFT');
+				$this->db->join('param_tipo_entidad TE', 'TE.id_tipo_entidad = V.fk_id_tipo_entidad', 'LEFT');
+				$this->db->join('param_tipo_sociedad TS', 'TS.id_tipo_sociedad = V.fk_id_tipo_sociedad', 'LEFT');
+				$this->db->join('param_genero G', 'G.id_genero = V.fk_id_genero', 'LEFT');
+				$this->db->join('param_tipo_atencion TA', 'TA.id_tipo_atencion = V.fk_id_tipo_atencion', 'INNER');
+				if (array_key_exists('fecha', $arrData) && $arrData['fecha'] != '') {
+					$this->db->like('fecha_registro', $arrData["fecha"]); 
+				}
+				if (array_key_exists('from', $arrData) && $arrData['from'] != '') {
+					$this->db->where('fecha_registro >=', $arrData["from"]);
+				}				
+				if (array_key_exists('to', $arrData) && $arrData['to'] != '' && $arrData['from'] != '') {
+					$this->db->where('fecha_registro <', $arrData["to"]);
+				}
+				$this->db->order_by('fecha_registro', 'asc');
+				$query = $this->db->get('ventanilla_virtual V');
 				if ($query->num_rows() > 0) {
 					return $query->result_array();
 				} else {

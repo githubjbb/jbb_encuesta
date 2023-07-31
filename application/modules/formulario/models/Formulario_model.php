@@ -7,7 +7,7 @@
 		 * @author BMOTTAG
 		 * @since 27/6/2021
 		 */
-		public function saveEncuesta() 
+		public function saveEncuesta()
 		{				
 			$poblacion_cual =  $this->security->xss_clean($this->input->post('poblacion_cual'));
 			$poblacion_cual =  addslashes($poblacion_cual);
@@ -156,7 +156,6 @@
 	        return $upz;
 	    }
 	    
-
 	    /**
 	    * Lista de Barrios
 	    * @author AOCUBILLOSA
@@ -306,6 +305,120 @@
 				'fecha_registro' => date("Y-m-d")
 			);
 			$query = $this->db->insert('formulario_pqrsd', $data);
+			if ($query) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		/**
+	    * Lista tipo persona
+	    * @author AOCUBILLOSA
+	    * @since 16/07/2023
+	    */
+	    public function get_tipo_persona() {
+	        $this->db->select();
+			$this->db->where_in('id_tipo_persona', [1,2]);
+			$this->db->order_by('id_tipo_persona', 'asc');
+			$query = $this->db->get('param_tipo_persona');
+	        if ($query->num_rows() > 0) {
+	            return $query->result_array();
+	        } else {
+				return false;
+			}
+	    }
+
+	    /**
+		 * Guardar informacion formulario ventanilla virtual
+		 * @author AOCUBILLOSA
+		 * @since 30/07/2023
+		 */
+		public function saveVentanillaVirtual($path = '', $anexos = '')
+		{
+			$tipo_persona = $this->input->post('tipo_persona');
+			$tipo_ident = $this->input->post('tipo_ident');
+			$tipo_entidad = $this->input->post('tipo_entidad');
+			$tipo_sociedad = $this->input->post('tipo_sociedad');
+			$documento = $this->input->post('documento');
+			$tipo_genero = $this->input->post('tipo_genero');
+			$fecha_nac = $this->input->post('fecha_nacimiento');
+			$nombres = $this->input->post('nombres');
+			$apellidos = $this->input->post('apellidos');
+			$razon_social = $this->input->post('nombre_est');
+			$telefono = $this->input->post('telefono');
+			$email = $this->input->post('email');
+			$direccion = $this->input->post('direccion');
+			if (empty($tipo_persona)) {
+				$tipo_persona = NULL;
+			}
+			if (empty($tipo_ident)) {
+				$tipo_ident = NULL;
+				if ($tipo_persona == 2) {
+					$tipo_ident = 3;
+				}
+			}
+			if (empty($tipo_entidad)) {
+				$tipo_entidad = NULL;
+			}
+			if (empty($tipo_sociedad)) {
+				$tipo_sociedad = NULL;
+			}
+			if (empty($documento)) {
+				$documento = NULL;
+			}
+			if (empty($tipo_genero)) {
+				$tipo_genero = NULL;
+			}
+			if (empty($fecha_nac)) {
+				$fecha_nac = NULL;
+			}
+			if (empty($nombres)) {
+				$nombres = NULL;
+			}
+			if (empty($apellidos)) {
+				$apellidos = NULL;
+			}
+			if (empty($razon_social)) {
+				$razon_social = NULL;
+			}
+			if (empty($telefono)) {
+				$telefono = NULL;
+			}
+			if (empty($email)) {
+				$email = NULL;
+			}
+			if (empty($direccion)) {
+				$direccion = NULL;
+			}
+			if (empty($path)) {
+				$path = NULL;
+			}
+			if (empty($anexos)) {
+				$anexos = NULL;
+			}
+			$data = array(
+				'autoriza' => $this->input->post('autoriza'),
+				'fk_id_tipo_persona' => $tipo_persona,
+				'fk_id_tipo_identificacion' => $tipo_ident,
+				'fk_id_tipo_entidad' => $tipo_entidad,
+				'fk_id_tipo_sociedad' => $tipo_sociedad,
+				'numero_documento' => $documento,
+				'fk_id_genero' => $tipo_genero,
+				'fecha_nacimiento' => $fecha_nac,
+				'nombres' => $nombres,
+				'apellidos' => $apellidos,
+				'razon_social' => $razon_social,
+				'telefono' => $telefono,
+				'email' => $email,
+				'direccion' => $direccion,
+				'fk_id_tipo_atencion' => $this->input->post('tipo_atencion'),
+				'asunto' => $this->input->post('asunto'),
+				'archivo' => $path,
+				'anexos' => $anexos,
+				'fecha_registro' => date("Y-m-d")
+			);
+			$query = $this->db->insert('ventanilla_virtual', $data);
 			if ($query) {
 				return true;
 			} else {

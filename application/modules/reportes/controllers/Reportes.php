@@ -735,7 +735,7 @@ class Reportes extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(45);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(25);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(25);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(20);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(30);
@@ -747,7 +747,7 @@ class Reportes extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(16);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(30);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(50);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(30);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(35);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(20);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(40);
@@ -774,7 +774,162 @@ class Reportes extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
 			$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 			// Rename worksheet
-			$objPHPExcel->getActiveSheet()->setTitle('Enc. Satisfación');
+			$objPHPExcel->getActiveSheet()->setTitle('Form. Atención');
+			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+			// redireccionamos la salida al navegador del cliente (Excel2007)
+			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment;filename=' . $nombreArchivo);
+			header('Cache-Control: max-age=0');
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+			$objWriter->save('php://output');
+    }
+
+    /**
+	 * Generate Reportes Formulario Ventanilla Virtual in XLS
+     * @since 31/07/2023
+     * @author AOCUBILLOSA
+	 */
+	public function generaFormularioVentanillaFechaXLS()
+	{
+			$bandera = $this->input->post('bandera');
+			if($bandera == 1 )
+			{
+				$data['fecha'] = $this->input->post('fecha');
+				$fechaEncabezado = 'Fecha: ' . ucfirst(strftime("%b %d, %G",strtotime($data['fecha'])));
+				$nombreArchivo = 'formulario_ventanilla_' . $data['fecha'] . '.xls';
+				$arrParam = array(
+					'fecha' => $this->input->post('fecha')
+				);
+			} else {
+				$data['from'] = $this->input->post('from');
+				$data['to'] = $this->input->post('to');
+				$fechaEncabezado = 'Rango Fechas: ' . ucfirst(strftime("%b %d, %G",strtotime($data['from']))) . ' - ' . ucfirst(strftime("%b %d, %G",strtotime($data['to'])));
+				$nombreArchivo = 'formulario_ventanilla_' . $data['from'] . '-' . $data['to'] . '.xls';
+				$from = $data['from'];
+				//le sumo un dia al dia final para que ingrese ese dia en la consulta
+				$to = date('Y-m-d',strtotime ( '+1 day ' , strtotime ( $data['to']) ) );
+				$arrParam = array(
+					'from' => $from,
+					'to' => $to
+				);
+			}
+			$listaEncuestas = $this->reportes_model->get_info_form_ventanilla($arrParam);
+			// Create new PHPExcel object
+			$objPHPExcel = new PHPExcel();
+			// Set document properties
+			$objPHPExcel->getProperties()->setCreator("JBB APP")
+										 ->setLastModifiedBy("JBB APP")
+										 ->setTitle("Report")
+										 ->setSubject("Report")
+										 ->setDescription("JBB Report")
+										 ->setKeywords("office 2007 openxml php")
+										 ->setCategory("Report");
+			// Create a first sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+			$objPHPExcel->getActiveSheet(0)->setCellValue('A1', 'REGISTROS FORMULARIO VENTANILLA VIRTUAL - ' . $fechaEncabezado);
+			$objPHPExcel->getActiveSheet()
+									->setCellValue('A3', 'No.')
+									->setCellValue('B3', 'Fecha')
+									->setCellValue('C3', 'Autoriza el Tratamiento de Datos Personales')
+									->setCellValue('D3', 'Tipo de Persona')
+									->setCellValue('E3', 'Tipo de Identificación')
+									->setCellValue('F3', 'Tipo de Entidad')
+									->setCellValue('G3', 'Tipo de Empresa/Sociedad')
+									->setCellValue('H3', 'Número de Documento')
+									->setCellValue('I3', 'Genero')
+									->setCellValue('J3', 'Fecha de Nacimiento')
+									->setCellValue('K3', 'Nombres')
+									->setCellValue('L3', 'Apellidos')
+									->setCellValue('M3', 'Razón Social')
+									->setCellValue('N3', 'Teléfono')
+									->setCellValue('O3', 'Correo Electrónico')
+									->setCellValue('P3', 'Dirección')
+									->setCellValue('Q3', 'Tipo de Petición')
+									->setCellValue('R3', 'Asunto')
+									->setCellValue('S3', 'Archivo Adjunto')
+									->setCellValue('T3', 'Anexos');
+			$j=4;
+			$x=0;
+			if($listaEncuestas){
+				foreach ($listaEncuestas as $lista):
+					$x++;
+					$autoriza = '';
+					if($lista['autoriza']){
+						switch ($lista['autoriza']) {
+							case 1:
+								$autoriza = 'Si';
+								break;
+							case 2:
+								$autoriza = 'No';
+								break;
+						}
+					}
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$j.':C'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('H'.$j.':J'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('N'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('S'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->getStyle('T'.$j)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, "$x")
+											->setCellValue('B'.$j, $lista['fecha_registro'])
+											->setCellValue('C'.$j, $autoriza)
+											->setCellValue('D'.$j, $lista['tipo_persona'])
+											->setCellValue('E'.$j, $lista['tipo_identificacion'])
+											->setCellValue('F'.$j, $lista['tipo_entidad'])
+											->setCellValue('G'.$j, $lista['tipo_sociedad'])
+											->setCellValue('H'.$j, $lista['numero_documento'])
+											->setCellValue('I'.$j, $lista['genero'])
+											->setCellValue('J'.$j, $lista['fecha_nacimiento'])
+											->setCellValue('K'.$j, $lista['nombres'])
+											->setCellValue('L'.$j, $lista['apellidos'])
+											->setCellValue('M'.$j, $lista['razon_social'])
+											->setCellValue('N'.$j, $lista['telefono'])
+											->setCellValue('O'.$j, $lista['email'])
+											->setCellValue('P'.$j, $lista['direccion'])
+											->setCellValue('Q'.$j, $lista['tipo_atencion'])
+											->setCellValue('R'.$j, $lista['asunto'])
+											->setCellValue('S'.$j, $lista['archivo'])
+											->setCellValue('T'.$j, $lista['anexos']);
+					$j++;
+				endforeach;
+			}
+			// Set column widths							  
+			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(12);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(40);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(45);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(12);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(50);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(35);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(50);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(30);
+			// Set fonts	
+			$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:T3')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:T3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:T3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:T3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:T3')->getFill()->getStartColor()->setARGB(PHPExcel_Style_Color::COLOR_BLUE);
+			// Set header and footer. When no different headers for odd/even are used, odd header is assumed.
+			$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BPersonal cash register&RPrinted on &D');
+			$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');
+			// Set page orientation and size
+			$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+			$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+			// Rename worksheet
+			$objPHPExcel->getActiveSheet()->setTitle('Form. Ventanilla');
 			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 			$objPHPExcel->setActiveSheetIndex(0);
 			// redireccionamos la salida al navegador del cliente (Excel2007)
