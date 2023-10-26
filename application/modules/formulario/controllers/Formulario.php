@@ -392,7 +392,7 @@ class Formulario extends CI_Controller {
 		}
 		// Configuracion encabezado correo
 		//$to = "andres.cubillos@jbb.gov.co";
-		$to = "correspondenciajbb@jbb.gov.co";
+		$to = "servicioalciudadano@jbb.gov.co";
 		$arrParam2 = array(
 			"table" => "parametros",
 			"order" => "id_parametro",
